@@ -1,6 +1,26 @@
 @extends('layouts.ketuakelas.main_layouts')
 
 @section('content')
+    <div class="mx-4 mt-4" style="max-width: 26rem;">
+        <div class="alert alert-primary alert-dismissible d-flex" role="alert">
+            <span class="p-3 badge badge-center rounded-pill bg-primary border-label-primary me-2">
+                <i class="bx bx-command fs-6"></i></span>
+            <div class="d-flex flex-column ps-1">
+                <h6 class="mb-1 alert-heading d-flex align-items-center fw-bold">Pengingat</h6>
+                {{-- <span>This is a primary solid alert — check it out!</span> --}}
+                <?php
+                $today = date('l'); // Mendapatkan hari saat ini dalam format 'Monday', 'Tuesday', dll.
+                ?>
+                @if ($today == 'Saturday' || $today == 'Sunday')
+                    <p>Hari ini sekolah sedang libur.</p>
+                @else
+                    <p>Jangan lupa untuk mengabsen pada hari ini.</p>
+                @endif
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="p-4">
         <div class="card">
             <h5 class="card-header">Data Siswa {{ str_replace('Ketua ', '', Auth::user()->name) }}</h5>
@@ -12,6 +32,7 @@
                         <button class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
                 </div>
+
                 <div class="table-responsive text-nowrap">
                     <table class="table table-bordered">
                         <thead class="table-primary">
@@ -64,7 +85,7 @@
                         </tbody>
                     </table>
                 </div>
-                <button class="btn btn-success mt-3 m-auto d-block">Kirim Absen</button>
+                <button class="m-auto mt-3 btn btn-success d-block">Kirim Absen</button>
             </div>
         </div>
     </div>
