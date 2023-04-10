@@ -284,7 +284,7 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/user/profile">
+                                        <a class="dropdown-item" href="{{ route('profile.show') }}">
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">My Profile</span>
                                         </a>
@@ -340,24 +340,18 @@
 
 
                 <!-- Footer -->
-                <footer class="content-footer footer bg-footer-theme">
+                <footer class="mb-3 content-footer footer bg-footer-theme">
                     <div class="flex-wrap py-2 container-xxl d-flex justify-content-between flex-md-row flex-column">
-                        <div class="mb-2 mb-md-0">
-                            © {{ now()->year }} , made with ❤️ by
+                        <div class="mb-2 text-center mb-md-0">
+                            © {{ now()->year }} , by
                             <a href="https://themeselection.com" target="_blank"
-                                class="footer-link fw-bolder">ThemeSelection</a>
+                                class="text-uppercase footer-link fw-bolder">Tim IT {{ $setting->nama_sekolah }}</a>
                         </div>
-                        <div>
+                        <div class="text-center">
                             <a href="https://themeselection.com/license/" class="footer-link me-4"
-                                target="_blank">License</a>
-                            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More
-                                Themes</a>
-
-                            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                                target="_blank" class="footer-link me-4">Documentation</a>
-
-                            <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                                target="_blank" class="footer-link me-4">Support</a>
+                                target="_blank">Hak Cipta</a>
+                            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Help</a>
+                            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Contact</a>
                         </div>
                     </div>
                 </footer>
