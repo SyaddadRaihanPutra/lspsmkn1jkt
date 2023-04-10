@@ -44,9 +44,39 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src=" assets/js/config.js"></script>
+
+    <style>
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .preloader img {
+            width: 400px;
+            height: 300px;
+        }
+
+        .hide-preloader {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="preloader">
+        <img src="https://vafloc01.s3.amazonaws.com/WBStatic/site1102601/dist/img/loader.gif" alt="LOADING">
+    </div>
+
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -291,7 +321,8 @@
                         <!-- Search -->
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
-                                <i class='bx bx-time-five'></i> &nbsp; <span class="fw-bold">{{ now()->isoFormat('dddd, D MMMM Y') }}</span>
+                                <i class='bx bx-time-five'></i> &nbsp; <span
+                                    class="fw-bold">{{ now()->isoFormat('dddd, D MMMM Y') }}</span>
                             </div>
                         </div>
                         <!-- /Search -->
@@ -333,22 +364,6 @@
                                         <a class="dropdown-item" href="/user/profile">
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">My Profile</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="bx bx-cog me-2"></i>
-                                            <span class="align-middle">Settings</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <span class="align-middle d-flex align-items-center">
-                                                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                                <span class="align-middle flex-grow-1">Billing</span>
-                                                <span
-                                                    class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                            </span>
                                         </a>
                                     </li>
                                     <li>
@@ -442,6 +457,13 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+        // Hapus preloader setelah selesai memuat halaman
+        setTimeout(function() {
+            const preloader = document.querySelector('.preloader');
+            preloader.classList.add('hide-preloader');
+        }, 500);
+    </script>
 </body>
 
 </html>
