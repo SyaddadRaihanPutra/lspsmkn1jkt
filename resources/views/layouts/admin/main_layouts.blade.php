@@ -43,9 +43,39 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src=" assets/js/config.js"></script>
+
+    <style>
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .preloader img {
+            width: 400px;
+            height: 300px;
+        }
+
+        .hide-preloader {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="preloader">
+        <img src="https://vafloc01.s3.amazonaws.com/WBStatic/site1102601/dist/img/loader.gif" alt="LOADING">
+    </div>
+
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -83,7 +113,7 @@
                     <!-- Check jika user memiliki role sebagai Admin -->
                     @if ($role == 'Administrator')
                         <li class="menu-item">
-                            <a href="{{ route('setting') }}" class="menu-link">
+                            <a href="{{ route('settings') }}" class="menu-link">
                                 <i class='bx bx-cog menu-icon tf-icons'></i>
                                 <div data-i18n="Authentications">Pengaturan Website</div>
                             </a>
@@ -366,6 +396,14 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+        // Hapus preloader setelah selesai memuat halaman
+        setTimeout(function() {
+            const preloader = document.querySelector('.preloader');
+            preloader.classList.add('hide-preloader');
+        }, 500);
+    </script>
 </body>
 
 </html>

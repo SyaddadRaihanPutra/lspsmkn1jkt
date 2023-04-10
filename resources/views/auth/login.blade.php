@@ -142,6 +142,7 @@
         <div class="preloader">
             <img src="https://vafloc01.s3.amazonaws.com/WBStatic/site1102601/dist/img/loader.gif" alt="LOADING">
         </div>
+
         <!-- Content -->
         <div class="authentication-wrapper authentication-cover">
             <div class="m-0 authentication-inner row">
