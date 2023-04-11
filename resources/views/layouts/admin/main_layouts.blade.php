@@ -290,19 +290,9 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{ route('settings') }}">
                                             <i class="bx bx-cog me-2"></i>
-                                            <span class="align-middle">Settings</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <span class="align-middle d-flex align-items-center">
-                                                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                                <span class="align-middle flex-grow-1">Billing</span>
-                                                <span
-                                                    class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                            </span>
+                                            <span class="align-middle">Pengaturan Website</span>
                                         </a>
                                     </li>
                                     <li>
@@ -340,6 +330,7 @@
 
 
                 <!-- Footer -->
+                <hr>
                 <footer class="mb-3 content-footer footer bg-footer-theme">
                     <div class="flex-wrap py-2 container-xxl d-flex justify-content-between flex-md-row flex-column">
                         <div class="mb-2 text-center mb-md-0">

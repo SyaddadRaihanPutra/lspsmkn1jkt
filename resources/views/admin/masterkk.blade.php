@@ -70,10 +70,15 @@
                                     <label class="form-label" for="jurusan_id">Nama Jurusan</label>
                                     <select name="jurusan_id" id="jurusan_id" class="form-select" required>
                                         <option value="">---- Pilih Jurusan ----</option>
-                                        @foreach (\App\Models\Jurusan::pluck('nama_jurusan', 'id') as $jurusan_id => $nama_jurusan)
-                                            <option value="{{ $jurusan_id }}">{{ $nama_jurusan }}</option>
+                                        @foreach (\App\Models\Jurusan::pluck('nama_jurusan', 'id')->filter(function ($nama_jurusan, $jurusan_id) {
+                                            return !\App\Models\User::where('jurusan_id', $jurusan_id)->exists();
+                                        }) as $jurusan_id => $nama_jurusan)
+                                            <option value="{{ $jurusan_id }}">
+                                                {{ $nama_jurusan }}
+                                            </option>
                                         @endforeach
                                     </select>
+
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
