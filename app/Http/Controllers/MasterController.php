@@ -18,8 +18,7 @@ class MasterController extends Controller
         $setting = Setting::first();
         $role = "Administrator";
         return view('admin.setting', compact('setting', 'role'));
-    } 
-
+    }
     public function update_setting(Request $request)
     {
         $setting = Setting::first();
