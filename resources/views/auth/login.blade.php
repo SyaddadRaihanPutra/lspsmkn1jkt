@@ -189,7 +189,7 @@
                                     @if (Route::has('password.request'))
                                         <a class="text-sm text-gray-600 rounded-md hover:text-gray-900"
                                             href="{{ route('password.request') }}">
-                                            {{ __('Forgot your password?') }}
+                                            {{ __('Lupa kata sandi?') }}
                                         </a>
                                     @endif
                                 </div>
@@ -204,7 +204,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="remember-me">
                                     <label class="form-check-label" for="remember-me">
-                                        Remember Me
+                                        Ingat Saya
                                     </label>
                                 </div>
                             </div>
@@ -222,6 +222,11 @@
                                 <span>Hubungi Admin</span>
                             </a>
                         </p>
+
+                        <div class="mt-5 text-center">
+                            <small>&copy; {{ now()->year }} | Hak Cipta Oleh {{ $setting->nama_sekolah }}</small>
+                            <small><p>Application Version 2.0 <span class="rounded-pill badge bg-danger">BETA</span></p></small>
+                        </div>
                         <!-- /Login -->
                     </div>
                 </div>
