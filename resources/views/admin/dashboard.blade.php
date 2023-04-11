@@ -1,5 +1,7 @@
 @extends('layouts.admin.main_layouts')
 
+@section('title', 'Dashboard')
+
 @section('content')
     <!-- Content wrapper -->
     <div class="content-wrapper">

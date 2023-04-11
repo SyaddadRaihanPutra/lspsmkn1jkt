@@ -1,5 +1,7 @@
 @extends('layouts.admin.main_layouts')
 
+@section('title', 'Ketua Kelas')
+
 @section('content')
     <div class="content-wrapper">
         <!-- Content -->
@@ -29,7 +31,7 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="nama_ketua_kelas">Nama Ketua Kelas</label>
                                     <input list="nama-ketua-kelas" class="form-control" id="nama_ketua_kelas" name="name"
-                                        placeholder="Contoh: Ketua Kelas - X TKP 1" required>
+                                        placeholder="Contoh: Ketua Kelas X TKP 1" required>
                                         <datalist id="nama-ketua-kelas">
                                             <option value="Ketua Kelas ">
                                         </datalist>

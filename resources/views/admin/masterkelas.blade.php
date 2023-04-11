@@ -1,5 +1,7 @@
 @extends('layouts.admin.main_layouts')
 
+@section('title', 'Data Kelas')
+
 @section('content')
 <div class="content-wrapper">
     <!-- Content -->
