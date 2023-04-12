@@ -32,9 +32,9 @@
                                     <label class="form-label" for="nama_ketua_kelas">Nama Ketua Kelas</label>
                                     <input list="nama-ketua-kelas" class="form-control" id="nama_ketua_kelas" name="name"
                                         placeholder="Contoh: Ketua Kelas X TKP 1" required>
-                                        <datalist id="nama-ketua-kelas">
-                                            <option value="Ketua Kelas ">
-                                        </datalist>
+                                    <datalist id="nama-ketua-kelas">
+                                        <option value="Ketua Kelas ">
+                                    </datalist>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="email">Email</label>
@@ -73,8 +73,8 @@
                                     <select name="jurusan_id" id="jurusan_id" class="form-select" required>
                                         <option value="">---- Pilih Jurusan ----</option>
                                         @foreach (\App\Models\Jurusan::pluck('nama_jurusan', 'id')->filter(function ($nama_jurusan, $jurusan_id) {
-                                            return !\App\Models\User::where('jurusan_id', $jurusan_id)->exists();
-                                        }) as $jurusan_id => $nama_jurusan)
+            return !\App\Models\User::where('jurusan_id', $jurusan_id)->exists();
+        }) as $jurusan_id => $nama_jurusan)
                                             <option value="{{ $jurusan_id }}">
                                                 {{ $nama_jurusan }}
                                             </option>
@@ -90,7 +90,15 @@
                 </div>
                 <div class="col-xl">
                     <div class="mb-4 card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
+                        <!-- Tampilan data atau konten lainnya -->
+                        <div class="card-header" style="max-width: 25rem;">
+                            @if (session('success'))
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            </button>
+                            </div>
+                        @endif
                             <h5 class="mb-0">Data Ketua Kelas</h5>
                         </div>
                         <div class="card-body">
@@ -135,7 +143,9 @@
                                                         method="POST" style="display: inline-block">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button onclick="return confirm('Yakin ingin menghapus {{ $kk->name }}')" type="submit" class="btn btn-danger btn-sm"><i
+                                                        <button
+                                                            onclick="return confirm('Yakin ingin menghapus {{ $kk->name }}')"
+                                                            type="submit" class="btn btn-danger btn-sm"><i
                                                                 class='bx bx-trash'></i> Delete</button>
                                                     </form>
                                                 </td>
