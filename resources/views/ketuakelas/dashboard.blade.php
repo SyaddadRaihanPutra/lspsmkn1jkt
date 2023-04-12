@@ -1,21 +1,36 @@
 @extends('layouts.ketuakelas.main_layouts')
 
 @section('content')
+    <?php
+    $today = date('l'); // Mendapatkan hari saat ini dalam format 'Monday', 'Tuesday', dll.
+    $currentTime = date('H:i'); // Mendapatkan waktu saat ini dalam format jam dan menit (24 jam)
+
+    $presensiMessage = ''; // Variabel untuk menyimpan pesan presensi
+    $presensiAlertClass = ''; // Variabel untuk menyimpan kelas CSS untuk alert
+
+    // Cek jika hari ini adalah Sabtu atau Minggu (libur)
+    if ($today == 'Saturday' || $today == 'Sunday') {
+        $presensiMessage = 'Hari ini sekolah sedang libur.';
+    } else {
+        // Cek jika waktu saat ini telah melewati batas presensi pukul 10.00
+        if ($currentTime > '10:00') {
+            $presensiMessage = 'Telah melewati batas presensi.';
+            $presensiAlertClass = 'alert-danger'; // Mengatur kelas CSS menjadi 'alert-danger'
+            $presensiBg = '#ff4627'; // Mengatur kelas CSS menjadi 'bg-danger'
+        } else {
+            $presensiMessage = 'Segera melakukan presensi pada hari ini.';
+            $presensiMessage .= '<br>Batas Presensi Pukul : 10.00';
+        }
+    }
+    ?>
+    <!-- Menampilkan pesan presensi pada halaman HTML -->
     <div class="mx-4 mt-4" style="max-width: 25rem;">
-        <div class="alert alert-primary alert-dismissible d-flex" role="alert">
-            <span class="p-3 badge badge-center rounded-pill bg-primary border-label-primary me-2">
+        <div class="alert <?= $presensiAlertClass; ?> alert-dismissible d-flex" role="alert">
+            <span class="p-3 badge badge-center rounded-pill border-label-primary me-2" style="background-color: <?= $presensiBg; ?>;">
                 <i class="bx bx-command fs-6"></i></span>
             <div class="d-flex flex-column ps-1">
                 <h6 class="mb-2 alert-heading d-flex align-items-center fw-bold">🔔 Pengingat</h6>
-                <?php
-                $today = date('l'); // Mendapatkan hari saat ini dalam format 'Monday', 'Tuesday', dll.
-                ?>
-                @if ($today == 'Saturday' || $today == 'Sunday')
-                    <small>Hari ini sekolah sedang libur.</small>
-                @else
-                    <small>Segera melakukan presensi pada hari ini.</small>
-                    <small>Batas Presensi Pukul : 10.00</small>
-                @endif
+                <small><?php echo $presensiMessage; ?></small>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                 </button>
             </div>
