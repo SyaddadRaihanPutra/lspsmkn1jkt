@@ -45,6 +45,12 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src=" assets/js/config.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+    integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous">
+</script>
+
     <style>
         .preloader {
             position: fixed;
@@ -463,6 +469,27 @@
             const preloader = document.querySelector('.preloader');
             preloader.classList.add('hide-preloader');
         }, 500);
+    </script>
+
+    <script>
+        $('#myModal').modal('hide');
+        $(document).ready(function() {
+            $('.detail-btn').click(function() {
+                const id = $(this).attr('data-id');
+                $.ajax({
+                    url: 'master-jurusan/' + id,
+                    type: 'GET',
+                    data: {
+                        "id": id
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $('#nama_jurusan').html(data.nama_jurusan);
+                        // $('#product-desc').html(data.description);
+                    }
+                })
+            });
+        });
     </script>
 </body>
 

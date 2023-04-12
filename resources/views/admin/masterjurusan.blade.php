@@ -72,13 +72,14 @@
                                                     {{ $j->nama_jurusan }}
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btn btn-warning btn-sm"
-                                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                    <button data-id="{{ $j->id }}"
+                                                        class="btn btn-warning btn-sm detail-btn" data-bs-toggle="modal"
+                                                        data-bs-target="#myModal">
                                                         <i class='bx bx-low-vision'></i> Detail
                                                     </button>
 
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="staticBackdrop" tabindex="-1"
+                                                    <div class="modal fade" id="myModal" tabindex="-1"
                                                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered">
                                                             <div class="modal-content">
@@ -89,20 +90,18 @@
                                                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    @foreach (\App\Models\Kelas::pluck('nama_kelas', 'id') as $kelas_id => $nama_kelas)
-                                                                        @if ($j->kelas_id == $kelas_id)
-                                                                            {{ $nama_kelas }}
-                                                                        @endif
-                                                                    @endforeach
-                                                                    @foreach ($jurusan as $j)
-                                                                        {{ $j->nama_jurusan }}
-                                                                    @endforeach
+                                                                    <p><strong>Kelas:</strong>
+                                                                        @foreach (\App\Models\Kelas::pluck('nama_kelas', 'id') as $kelas_id => $nama_kelas)
+                                                                            @if ($j->kelas_id == $kelas_id)
+                                                                                {{ $nama_kelas }}
+                                                                            @endif
+                                                                        @endforeach
+                                                                </p>
+                                                                    <p><strong>Jurusan:</strong> <span id="nama_jurusan"></span></p>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary"
                                                                         data-bs-dismiss="modal">Tutup</button>
-                                                                    <button type="button"
-                                                                        class="btn btn-primary">Mengerti</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -125,4 +124,31 @@
             </div>
         </div>
         <!-- / Content -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous">
+    </script>
+
+
+    <script>
+        $('#myModal').modal('hide');
+        $(document).ready(function() {
+            $('.detail-btn').click(function() {
+                const id = $(this).attr('data-id');
+                $.ajax({
+                    url: 'master-jurusan/' + id,
+                    type: 'GET',
+                    data: {
+                        "id": id
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                        $('#nama_jurusan').html(data.nama_jurusan);
+                    }
+                })
+            });
+        });
+    </script>
     @endsection
+

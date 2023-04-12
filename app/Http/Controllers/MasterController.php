@@ -76,6 +76,11 @@ class MasterController extends Controller
         return view('admin.masterjurusan', compact('jurusan', 'role'));
     }
 
+    public function jurusan_show($id)
+    {
+        return Jurusan::findOrFail($id);
+    }
+
     public function master_user(Request $request)
     {
         $kelas_id = $request->input('kelas_id');

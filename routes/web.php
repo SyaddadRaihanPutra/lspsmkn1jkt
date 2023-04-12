@@ -50,6 +50,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
     Route::get('master-jurusan', [MasterController::class, 'master_jurusan'])->name('master-jurusan');
+    Route::get('master-jurusan/{id}', [MasterController::class, 'jurusan_show'])->name('master-jurusan.show');
 
 
     Route::get('master-kk', [MasterController::class, 'master_user'])->name('master-user');
