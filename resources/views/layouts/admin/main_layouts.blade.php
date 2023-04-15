@@ -160,9 +160,9 @@
                         <span class="menu-header-text">Pages</span>
                     </li>
                     <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                            <div data-i18n="Account Settings">Account Settings</div>
+                        <a href="javascript:void(0);" class="menu-link">
+                            <i class='bx bx-file menu-icon tf-icons'></i>
+                            <div data-i18n="Account Settings">Export Presensi</div>
                         </a>
 
                     </li>
