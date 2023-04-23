@@ -339,12 +339,70 @@
                                 class="text-uppercase footer-link fw-bolder">Tim IT {{ $setting->nama_sekolah }}</a>
                         </div>
                         <div class="text-center">
-                            <a href="https://themeselection.com/license/" class="footer-link me-4"
-                                target="_blank">Hak Cipta</a>
-                            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Help</a>
-                            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Contact</a>
-                        </div>
-                    </div>
+                            <!-- Button trigger modal -->
+                            <a class="footer-link me-4" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                href="@copyright">
+                                Hak Cipta
+                            </a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Hak Cipta Aplikasi
+                                                Presensi Siswa SMKN 1 Jakarta</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" style="text-align: justify!important;">
+                                            <p class="fw-bolder" style="text-decoration: underline;">Pernyataan Hak
+                                                Cipta:</p>
+                                            <p>Seluruh hak cipta dari aplikasi Presensi Siswa SMKN 1 Jakarta, termasuk
+                                                tetapi tidak terbatas pada desain, kode sumber, grafik, tampilan, dan
+                                                dokumentasi yang terkait, adalah milik SMKN 1 Jakarta dan dilindungi
+                                                oleh undang-undang hak cipta di
+                                                Indonesia dan seluruh dunia.</p>
+                                            <p>Tidak ada bagian dari aplikasi ini yang boleh direproduksi,
+                                                didistribusikan, atau dipindai ulang dalam bentuk apapun atau dengan
+                                                cara apapun tanpa izin tertulis terlebih dahulu dari SMKN 1 Jakarta.</p>
+                                            <p>Penggunaan aplikasi Presensi Siswa SMKN 1 Jakarta hanya diizinkan bagi
+                                                pengguna yang telah memperoleh izin tertulis dari SMKN 1 Jakarta. Segala
+                                                pelanggaran
+                                                terhadap hak cipta akan ditindak sesuai dengan hukum yang berlaku.</p>
+                                            <p class="fw-bolder" style="text-decoration: underline;">Pernyataan
+                                                Penolakan:</p>
+                                            <p>Aplikasi Presensi Siswa SMKN 1 Jakarta disediakan "apa adanya" tanpa
+                                                jaminan apapun, baik tersurat maupun tersirat, termasuk namun tidak
+                                                terbatas pada jaminan untuk tujuan tertentu, tidak ada pelanggaran, atau
+                                                ketepatan waktu.</p>
+                                            <p>SMKN 1 Jakarta tidak bertanggung
+                                                jawab atas kerusakan langsung, tidak langsung, khusus, insidental, atau
+                                                konsekuensial yang diakibatkan oleh penggunaan aplikasi ini.</p>
+                                            <p>SMKN 1 Jakarta berhak untuk mengubah,
+                                                memperbarui, atau menghapus bagian dari aplikasi ini tanpa pemberitahuan
+                                                sebelumnya.</p>
+                                            <p class="fw-bolder" style="text-decoration: underline;">Pernyataan
+                                                Penggunaan:</p>
+                                            <p>Aplikasi Presensi Siswa SMKN 1 Jakarta hanya boleh digunakan untuk tujuan
+                                                pendidikan dan tidak boleh digunakan untuk tujuan komersial.</p>
+                                            <p>Pengguna aplikasi ini harus mematuhi peraturan dan kebijakan SMKN 1
+                                                Jakarta terkait penggunaan aplikasi ini.</p>
+                                            <p>SMKN 1 Jakarta tidak bertanggung
+                                                jawab atas penggunaan aplikasi ini yang melanggar peraturan dan
+                                                kebijakan SMKN 1 Jakarta.</p>
+                                            <img src="assets/img/qrcode_57389426_772e0f72fe3234b4091428b187cee34c.png"
+                                                width="80" alt="">
+                                            <hr>
+                                            <small>Hak Cipta &copy; 2023 SMKN 1 Jakarta</small>
+
+                                            <a href="https://themeselection.com/" target="_blank"
+                                                class="footer-link me-4">Bantuan</a>
+                                            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+                                                target="_blank" class="footer-link me-4">Contact</a>
+                                        </div>
+                                    </div>
                 </footer>
                 <!-- / Footer -->
 
