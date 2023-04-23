@@ -344,6 +344,10 @@
                                 href="@copyright">
                                 Hak Cipta
                             </a>
+                            <a href="https://themeselection.com/" target="_blank"
+                                class="footer-link me-4">Bantuan</a>
+                            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+                                target="_blank" class="footer-link me-4">Contact</a>
 
                             <!-- Modal -->
                             <div class="modal fade" id="exampleModal" tabindex="-1"
@@ -396,13 +400,12 @@
                                                 width="80" alt="">
                                             <hr>
                                             <small>Hak Cipta &copy; 2023 SMKN 1 Jakarta</small>
-
-                                            <a href="https://themeselection.com/" target="_blank"
-                                                class="footer-link me-4">Bantuan</a>
-                                            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                                                target="_blank" class="footer-link me-4">Contact</a>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </footer>
                 <!-- / Footer -->
 
