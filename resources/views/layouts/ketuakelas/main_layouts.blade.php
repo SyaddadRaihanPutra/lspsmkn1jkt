@@ -485,7 +485,6 @@
                     success: function(data) {
                         console.log(data);
                         $('#nama_jurusan').html(data.nama_jurusan);
-                        // $('#product-desc').html(data.description);
                     }
                 })
             });

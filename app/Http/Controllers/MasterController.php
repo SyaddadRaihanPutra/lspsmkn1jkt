@@ -91,7 +91,11 @@ class MasterController extends Controller
             $ketuakelas = User::where('name', 'LIKE', '%' . $request->search . '%')->whereNotNull('kelas_id')->paginate(10);
         } else {
             $ketuakelas = DB::table('users')->whereNotNull('kelas_id')->paginate(10);
+            if ($ketuakelas->isEmpty()) {
+                return "Data not found";
+            }
         }
+
 
         // $students = DB::table('students')
         //     ->where('kelas_id', $kelas_id)

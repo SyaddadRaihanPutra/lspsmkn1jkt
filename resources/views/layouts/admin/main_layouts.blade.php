@@ -335,7 +335,7 @@
                     <div class="flex-wrap py-2 container-xxl d-flex justify-content-between flex-md-row flex-column">
                         <div class="mb-2 text-center mb-md-0">
                             © {{ now()->year }} , by
-                            <a href="https://themeselection.com" target="_blank"
+                            <a href="{{ $setting->url_web_sekolah }}" target="_blank"
                                 class="text-uppercase footer-link fw-bolder">Tim IT {{ $setting->nama_sekolah }}</a>
                         </div>
                         <div class="text-center">
