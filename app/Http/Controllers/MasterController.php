@@ -92,7 +92,7 @@ class MasterController extends Controller
         } else {
             $ketuakelas = DB::table('users')->whereNotNull('kelas_id')->paginate(10);
             if ($ketuakelas->isEmpty()) {
-                return "Data not found";
+                return "Data Tidak Ditemukan";
             }
         }
 

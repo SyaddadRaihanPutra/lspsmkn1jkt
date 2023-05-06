@@ -1,3 +1,42 @@
+<style>
+    @media (max-width: 767px) {
+
+        .nis,
+        .jurusan {
+            display: none;
+        }
+    }
+
+    .bg-color {
+        background-color: #e6f9ec;
+    }
+
+    .bg-color-trans {
+        background-color: rgba(187, 244, 227, 0.28);
+    }
+
+    /* Tampilan desktop */
+    @media only screen and (min-width: 768px) {
+        .kehadiran {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    /* Tampilan mobile */
+    @media only screen and (max-width: 767px) {
+        .kehadiran {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .kehadiran .btn {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    }
+</style>
 @extends('layouts.ketuakelas.main_layouts')
 
 @section('content')
@@ -11,6 +50,8 @@
     // Cek jika hari ini adalah Sabtu atau Minggu (libur)
     if ($today == 'Saturday' || $today == 'Sunday') {
         $presensiMessage = 'Hari ini sekolah sedang libur.';
+        $presensiBg = '#5f61e6'; // Mengatur kelas CSS menjadi 'bg-danger'
+        $presensiAlertClass = 'alert-primary'; // Mengatur kelas CSS menjadi 'alert-danger'
     } else {
         // Cek jika waktu saat ini telah melewati batas presensi pukul 10.00
         if ($currentTime > '10:00') {
@@ -24,9 +65,10 @@
     }
     ?>
     <!-- Menampilkan pesan presensi pada halaman HTML -->
-    <div class="mx-4 mt-4" style="max-width: 25rem;">
-        <div class="alert <?= $presensiAlertClass; ?> alert-dismissible d-flex" role="alert">
-            <span class="p-3 badge badge-center rounded-pill border-label-primary me-2" style="background-color: <?= $presensiBg; ?>;">
+    <div class="mx-4 mt-4 d-block">
+        <div class="alert <?= $presensiAlertClass ?> alert-dismissible d-flex" role="alert">
+            <span class="p-3 badge badge-center rounded-pill border-label-primary me-2"
+                style="background-color: <?= $presensiBg ?>;">
                 <i class="bx bx-command fs-6"></i></span>
             <div class="d-flex flex-column ps-1">
                 <h6 class="mb-2 alert-heading d-flex align-items-center fw-bold">🔔 Pengingat</h6>
@@ -38,7 +80,14 @@
     </div>
     <div class="p-4">
         <div class="card">
-            <h5 class="card-header">Data Siswa {{ str_replace('Ketua ', '', Auth::user()->name) }}</h5>
+            <div class="top-0 card-header sticky-top bg-light d-flex justify-content-between">
+                <h5 class="m-0">Data Siswa {{ str_replace('Ketua ', '', Auth::user()->name) }}</h5>
+                <span class="badge bg-primary rounded-5 d-flex align-items-center">
+                    <small>Data Dipilih: &nbsp;</small>
+                    <small id="num-selected" class="m-0 text-center">0</small>
+                </span>
+            </div>
+
             <div class="card-body">
                 <div class="mb-4 col-md-4">
                     <form class="d-flex" method="GET" action="/dashboard">
@@ -53,54 +102,66 @@
                         <thead class="table-primary">
                             <tr class="text-center align-middle">
                                 <td><input type="checkbox" class="form-check-input" id="select-all" name="checkbox"></td>
-                                <th>NIS</th>
+                                <th class="nis">NIS</th>
                                 <th>Nama</th>
-                                <th>Jurusan</th>
+                                <th class="jurusan">Jurusan</th>
                                 <th style="width: 20rem">Actions</th>
                                 <th>Keterangan</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($students as $data)
-                                @if (count($students) > 0)
-                                    <tr class="text-center">
-                                        <td><input type="checkbox" class="checkbox form-check-input" name="checkbox[]"
-                                                value="{{ $data->id }}"></td>
-                                        <td>
-                                            <i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                            <strong>{{ $data->nis }}</strong>
-                                        </td>
-                                        <td>{{ $data->name }}</td>
-                                        <td>
-                                            @foreach (\App\Models\Kelas::pluck('nama_kelas', 'id') as $kelas_id => $nama_kelas)
-                                                @if ($data->kelas_id == $kelas_id)
-                                                    {{ $nama_kelas }}
-                                                @endif
-                                            @endforeach
-                                            @foreach (\App\Models\Jurusan::pluck('nama_jurusan', 'id') as $jurusan_id => $nama_jurusan)
-                                                @if ($data->jurusan_id == $jurusan_id)
-                                                    {{ $nama_jurusan }}
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            <button class="btn-sm btn btn-primary">HADIR</button>
-                                            <button class="btn-sm btn btn-warning">IZIN</button>
-                                            <button class="btn-sm btn btn-danger">ALPHA</button>
-                                            <button class="btn-sm btn btn-dark">PKL</button>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                @else
-                                    <tr>
-                                        <td colspan="6" class="text-center">Tidak ada data</td>
-                                    </tr>
-                                @endif
-                            @endforeach
+                            @if ($students->isEmpty())
+                                <tr>
+                                    <td colspan="6" class="text-center">Data Tidak Ditemukan</td>
+                                </tr>
+                            @else
+                                @foreach ($students as $data)
+                                    @if (count($students) > 0)
+                                        <tr class="text-center">
+                                            <td><input type="checkbox" class="checkbox form-check-input" name="checkbox[]"
+                                                    value="{{ $data->id }}"></td>
+                                            <td class="nis">
+                                                <strong>{{ $data->nis }}</strong>
+                                            </td>
+                                            <td>{{ $data->name }}</td>
+                                            <td class="jurusan">
+                                                @foreach (\App\Models\Kelas::pluck('nama_kelas', 'id') as $kelas_id => $nama_kelas)
+                                                    @if ($data->kelas_id == $kelas_id)
+                                                        {{ $nama_kelas }}
+                                                    @endif
+                                                @endforeach
+                                                @foreach (\App\Models\Jurusan::pluck('nama_jurusan', 'id') as $jurusan_id => $nama_jurusan)
+                                                    @if ($data->jurusan_id == $jurusan_id)
+                                                        {{ $nama_jurusan }}
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                <div class="gap-2 d-flex justify-content-center">
+                                                    <div class="gap-2 kehadiran">
+                                                        <button type="button" class="btn btn-primary btn-sm">HADIR</button>
+                                                        <button type="button" class="btn btn-warning btn-sm">IZIN</button>
+                                                        <button type="button" class="btn btn-danger btn-sm">ALPHA</button>
+                                                        <button type="button" class="btn btn-dark btn-sm">PKL</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    @else
+                                        <tr>
+                                            <td colspan="6" class="text-center">Tidak ada data</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
-                <button class="m-auto mt-3 btn btn-success d-block">Kirim Absen</button>
+                @if ($students->isEmpty())
+                @else
+                    <button class="m-auto mt-3 btn btn-success d-block">Kirim Absen</button>
+                @endif
             </div>
         </div>
     </div>
@@ -108,9 +169,39 @@
         // Add event listener to the "Select All" checkbox
         document.getElementById("select-all").addEventListener("change", function() {
             var checkboxes = document.getElementsByClassName("checkbox");
+            var numSelected = 0;
             for (var i = 0; i < checkboxes.length; i++) {
                 checkboxes[i].checked = this.checked;
+                if (this.checked) {
+                    checkboxes[i].closest("tr").classList.add("bg-color-trans");
+                    numSelected++;
+                } else {
+                    checkboxes[i].closest("tr").classList.remove("bg-color-trans");
+                }
             }
+            document.getElementById("num-selected").innerHTML = numSelected;
         });
+
+        // Add event listener to each checkbox
+        var checkboxes = document.getElementsByClassName("checkbox");
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener("change", function() {
+                var numSelected = 0;
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].checked) {
+                        checkboxes[i].closest("tr").classList.add("bg-color-trans");
+                        numSelected++;
+                    } else {
+                        checkboxes[i].closest("tr").classList.remove("bg-color-trans");
+                    }
+                }
+                document.getElementById("num-selected").innerHTML = numSelected;
+                if (numSelected == checkboxes.length) {
+                    document.getElementById("select-all").checked = true;
+                } else {
+                    document.getElementById("select-all").checked = false;
+                }
+            });
+        }
     </script>
 @endsection

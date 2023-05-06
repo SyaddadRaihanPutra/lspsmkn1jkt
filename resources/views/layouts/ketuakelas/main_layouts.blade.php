@@ -46,10 +46,10 @@
     <script src=" assets/js/config.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
-    integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous">
-</script>
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous">
+    </script>
 
     <style>
         .preloader {
@@ -74,6 +74,27 @@
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        /* style untuk tombol back to top */
+        #btn-back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            font-size: 15px;
+            border: none;
+            outline: none;
+            background-color: #5f61e6;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        #btn-back-to-top:hover {
+            background-color: #4d50d8;
         }
     </style>
 </head>
@@ -407,24 +428,84 @@
 
 
                 <!-- Footer -->
-                <footer class="content-footer footer bg-footer-theme">
+
+                <!-- Tombol Back to Top -->
+                <button id="btn-back-to-top" class="btn btn-primary btn-lg" title="Back to Top"><i class='bx bxs-up-arrow'></i></button>
+
+                <hr>
+                <footer class="mb-3 content-footer footer bg-footer-theme">
                     <div class="flex-wrap py-2 container-xxl d-flex justify-content-between flex-md-row flex-column">
-                        <div class="mb-2 mb-md-0">
-                            © {{ now()->year }} , made with ❤️ by
-                            <a href="https://themeselection.com" target="_blank"
-                                class="footer-link fw-bolder">ThemeSelection</a>
+                        <div class="mb-2 text-center mb-md-0">
+                            © {{ now()->year }} , by
+                            <a href="{{ $setting->url_web_sekolah }}" target="_blank"
+                                class="text-uppercase footer-link fw-bolder">Tim IT {{ $setting->nama_sekolah }}</a>
                         </div>
-                        <div>
-                            <a href="https://themeselection.com/license/" class="footer-link me-4"
-                                target="_blank">License</a>
-                            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More
-                                Themes</a>
-
+                        <div class="text-center">
+                            <!-- Button trigger modal -->
+                            <a class="footer-link me-4" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                href="@copyright">
+                                Hak Cipta
+                            </a>
+                            <a href="https://themeselection.com/" target="_blank"
+                                class="footer-link me-4">Bantuan</a>
                             <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                                target="_blank" class="footer-link me-4">Documentation</a>
+                                target="_blank" class="footer-link me-4">Contact</a>
 
-                            <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                                target="_blank" class="footer-link me-4">Support</a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Hak Cipta Aplikasi
+                                                Presensi Siswa SMKN 1 Jakarta</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" style="text-align: justify!important;">
+                                            <p class="fw-bolder" style="text-decoration: underline;">Pernyataan Hak
+                                                Cipta:</p>
+                                            <p>Seluruh hak cipta dari aplikasi Presensi Siswa SMKN 1 Jakarta, termasuk
+                                                tetapi tidak terbatas pada desain, kode sumber, grafik, tampilan, dan
+                                                dokumentasi yang terkait, adalah milik SMKN 1 Jakarta dan dilindungi
+                                                oleh undang-undang hak cipta di
+                                                Indonesia dan seluruh dunia.</p>
+                                            <p>Tidak ada bagian dari aplikasi ini yang boleh direproduksi,
+                                                didistribusikan, atau dipindai ulang dalam bentuk apapun atau dengan
+                                                cara apapun tanpa izin tertulis terlebih dahulu dari SMKN 1 Jakarta.</p>
+                                            <p>Penggunaan aplikasi Presensi Siswa SMKN 1 Jakarta hanya diizinkan bagi
+                                                pengguna yang telah memperoleh izin tertulis dari SMKN 1 Jakarta. Segala
+                                                pelanggaran
+                                                terhadap hak cipta akan ditindak sesuai dengan hukum yang berlaku.</p>
+                                            <p class="fw-bolder" style="text-decoration: underline;">Pernyataan
+                                                Penolakan:</p>
+                                            <p>Aplikasi Presensi Siswa SMKN 1 Jakarta disediakan "apa adanya" tanpa
+                                                jaminan apapun, baik tersurat maupun tersirat, termasuk namun tidak
+                                                terbatas pada jaminan untuk tujuan tertentu, tidak ada pelanggaran, atau
+                                                ketepatan waktu.</p>
+                                            <p>SMKN 1 Jakarta tidak bertanggung
+                                                jawab atas kerusakan langsung, tidak langsung, khusus, insidental, atau
+                                                konsekuensial yang diakibatkan oleh penggunaan aplikasi ini.</p>
+                                            <p>SMKN 1 Jakarta berhak untuk mengubah,
+                                                memperbarui, atau menghapus bagian dari aplikasi ini tanpa pemberitahuan
+                                                sebelumnya.</p>
+                                            <p class="fw-bolder" style="text-decoration: underline;">Pernyataan
+                                                Penggunaan:</p>
+                                            <p>Aplikasi Presensi Siswa SMKN 1 Jakarta hanya boleh digunakan untuk tujuan
+                                                pendidikan dan tidak boleh digunakan untuk tujuan komersial.</p>
+                                            <p>Pengguna aplikasi ini harus mematuhi peraturan dan kebijakan SMKN 1
+                                                Jakarta terkait penggunaan aplikasi ini.</p>
+                                            <p>SMKN 1 Jakarta tidak bertanggung
+                                                jawab atas penggunaan aplikasi ini yang melanggar peraturan dan
+                                                kebijakan SMKN 1 Jakarta.</p>
+                                            <img src="assets/img/qrcode_57389426_772e0f72fe3234b4091428b187cee34c.png"
+                                                width="80" alt="">
+                                            <hr>
+                                            <small>Hak Cipta &copy; 2023 SMKN 1 Jakarta</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </footer>
@@ -436,6 +517,27 @@
         </div>
         <!-- / Layout page -->
     </div>
+
+    <script>
+        $(document).ready(function() {
+            // tampilkan tombol back to top saat user menggulir ke bawah
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 100) {
+                    $('#btn-back-to-top').fadeIn();
+                } else {
+                    $('#btn-back-to-top').fadeOut();
+                }
+            });
+
+            // animasikan scroll ke atas saat tombol back to top diklik
+            $('#btn-back-to-top').click(function() {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 800);
+                return false;
+            });
+        });
+    </script>
 
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
