@@ -47,22 +47,30 @@
     $presensiMessage = ''; // Variabel untuk menyimpan pesan presensi
     $presensiAlertClass = ''; // Variabel untuk menyimpan kelas CSS untuk alert
 
-    // Cek jika hari ini adalah Sabtu atau Minggu (libur)
-    if ($today == 'Saturday' || $today == 'Sunday') {
-        $presensiMessage = 'Hari ini sekolah sedang libur.';
-        $presensiBg = '#5f61e6'; // Mengatur kelas CSS menjadi 'bg-danger'
-        $presensiAlertClass = 'alert-primary'; // Mengatur kelas CSS menjadi 'alert-danger'
-    } else {
-        // Cek jika waktu saat ini telah melewati batas presensi pukul 10.00
-        if ($currentTime > '10:00') {
-            $presensiMessage = 'Telah melewati batas presensi.';
-            $presensiAlertClass = 'alert-danger'; // Mengatur kelas CSS menjadi 'alert-danger'
-            $presensiBg = '#ff4627'; // Mengatur kelas CSS menjadi 'bg-danger'
-        } else {
-            $presensiMessage = 'Segera melakukan presensi pada hari ini.';
-            $presensiMessage .= '<br>Batas Presensi Pukul : 10.00';
-        }
+    switch ($today) {
+        case 'Saturday':
+        case 'Sunday':
+            // Jika hari ini adalah Sabtu atau Minggu (libur)
+            $presensiMessage = 'Hari ini sekolah sedang libur.';
+            $presensiBg = '#5f61e6'; // Mengatur kelas CSS menjadi 'bg-danger'
+            $presensiAlertClass = 'alert-primary'; // Mengatur kelas CSS menjadi 'alert-danger'
+            break;
+        default:
+            // Jika hari ini adalah hari kerja
+            if ($currentTime > '10:00') {
+                // Jika waktu saat ini telah melewati batas presensi pukul 10.00
+                $presensiMessage = 'Telah melewati batas presensi.';
+                $presensiAlertClass = 'alert-danger'; // Mengatur kelas CSS menjadi 'alert-danger'
+                $presensiBg = '#ff4627'; // Mengatur kelas CSS menjadi 'bg-danger'
+            } else {
+                // Jika waktu saat ini masih sebelum pukul 10.00
+                $presensiMessage = 'Segera melakukan presensi pada hari ini.';
+                $presensiMessage .= '<br>Batas Presensi Pukul : 10.00';
+                $presensiBg = '#5f61e6';
+            }
+            break;
     }
+
     ?>
     <!-- Menampilkan pesan presensi pada halaman HTML -->
     <div class="mx-4 mt-4 d-block">
@@ -78,6 +86,7 @@
             </div>
         </div>
     </div>
+
     <div class="p-4">
         <div class="card">
             <div class="top-0 card-header sticky-top bg-light d-flex justify-content-between">
@@ -101,7 +110,14 @@
                     <table class="table table-bordered">
                         <thead class="table-primary">
                             <tr class="text-center align-middle">
-                                <td><input type="checkbox" class="form-check-input" id="select-all" name="checkbox"></td>
+                                <td>
+                                    @if ($currentTime > '10:00')
+                                        <input type="checkbox" class="form-check-input" id="select-all" name="checkbox"
+                                            disabled>
+                                    @else
+                                        <input type="checkbox" class="form-check-input" id="select-all" name="checkbox">
+                                    @endif
+                                </td>
                                 <th class="nis">NIS</th>
                                 <th>Nama</th>
                                 <th class="jurusan">Jurusan</th>
@@ -118,8 +134,15 @@
                                 @foreach ($students as $data)
                                     @if (count($students) > 0)
                                         <tr class="text-center">
-                                            <td><input type="checkbox" class="checkbox form-check-input" name="checkbox[]"
-                                                    value="{{ $data->id }}"></td>
+                                            <td>
+                                                @if ($currentTime > '10:00')
+                                                    <input type="checkbox" class="form-check-input" id="select-all"
+                                                        name="checkbox" disabled>
+                                                @else
+                                                    <input type="checkbox" class="form-check-input" id="select-all"
+                                                        name="checkbox">
+                                                @endif
+                                            </td>
                                             <td class="nis">
                                                 <strong>{{ $data->nis }}</strong>
                                             </td>
@@ -160,7 +183,11 @@
                 </div>
                 @if ($students->isEmpty())
                 @else
-                    <button class="m-auto mt-3 btn btn-success d-block">Kirim Absen</button>
+                    @if ($currentTime > '10.00')
+                        <button class="m-auto mt-3 btn btn-success d-block" disabled>Kirim Absen</button>
+                    @else
+                        <button class="m-auto mt-3 btn btn-success d-block">Kirim Absen</button>
+                    @endif
                 @endif
             </div>
         </div>

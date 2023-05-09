@@ -96,8 +96,9 @@
                                                                                 {{ $nama_kelas }}
                                                                             @endif
                                                                         @endforeach
-                                                                </p>
-                                                                    <p><strong>Jurusan:</strong> <span id="nama_jurusan"></span></p>
+                                                                    </p>
+                                                                    <p><strong>Jurusan:</strong> <span
+                                                                            id="nama_jurusan"></span></p>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary"
@@ -124,31 +125,30 @@
             </div>
         </div>
         <!-- / Content -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
-        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous">
-    </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+            integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous">
+        </script>
 
 
-    <script>
-        $('#myModal').modal('hide');
-        $(document).ready(function() {
-            $('.detail-btn').click(function() {
-                const id = $(this).attr('data-id');
-                $.ajax({
-                    url: 'master-jurusan/' + id,
-                    type: 'GET',
-                    data: {
-                        "id": id
-                    },
-                    success: function(data) {
-                        // console.log(data);
-                        $('#nama_jurusan').html(data.nama_jurusan);
-                    }
-                })
+        <script>
+            $('#myModal').modal('hide');
+            $(document).ready(function() {
+                $('.detail-btn').click(function() {
+                    const id = $(this).attr('data-id');
+                    $.ajax({
+                        url: 'master-jurusan/' + id,
+                        type: 'GET',
+                        data: {
+                            "id": id
+                        },
+                        success: function(data) {
+                            // console.log(data);
+                            $('#nama_jurusan').html(data.nama_jurusan); //set nama jurusan ke modal
+                        }
+                    })
+                });
             });
-        });
-    </script>
+        </script>
     @endsection
-

@@ -60,11 +60,13 @@
                                                 <td>{{ $k->nama_kelas }}</td>
                                                 <td>
                                                     <form action="{{ route('master-kelas.delete', $k->id) }}" method="POST"
-                                                        id="deleteForm">
+                                                        id="deleteForm-{{ $k->id }}">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-danger btn-sm"
-                                                            id="deleteBtn"><i class='bx bx-trash'></i> Delete</button>
+                                                            onclick="deleteClass({{ $k->id }}, '{{ $k->nama_kelas }}')"
+                                                            id="deleteBtn-{{ $k->id }}"><i class='bx bx-trash'></i>
+                                                            Delete</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -84,10 +86,10 @@
 
         <!-- Add a script to handle the delete confirmation -->
         <script>
-            document.getElementById('deleteBtn').addEventListener('click', function() {
+            function deleteClass(id, nama_kelas) {
                 Swal.fire({
                     title: 'Are you sure?',
-                    text: "You are about to delete class {{ $k->nama_kelas }}!",
+                    text: "You are about to delete " + nama_kelas + "!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
@@ -98,11 +100,13 @@
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        document.getElementById('deleteForm').submit();
+                        // Submit delete form
+                        document.getElementById('deleteForm-' + id).submit();
                     }
                 });
-            });
+            }
         </script>
+
         <style>
             /* Define your custom class */
             .my-swal-container {
