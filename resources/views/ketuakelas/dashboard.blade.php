@@ -43,17 +43,18 @@
     <?php
     $today = date('l'); // Mendapatkan hari saat ini dalam format 'Monday', 'Tuesday', dll.
     $currentTime = date('H:i'); // Mendapatkan waktu saat ini dalam format jam dan menit (24 jam)
-
+    
     $presensiMessage = ''; // Variabel untuk menyimpan pesan presensi
     $presensiAlertClass = ''; // Variabel untuk menyimpan kelas CSS untuk alert
-
+    $presensiBg = ''; // Variabel untuk menyimpan kelas CSS untuk latar belakang
+    
     switch ($today) {
         case 'Saturday':
         case 'Sunday':
             // Jika hari ini adalah Sabtu atau Minggu (libur)
             $presensiMessage = 'Hari ini sekolah sedang libur.';
-            $presensiBg = '#5f61e6'; // Mengatur kelas CSS menjadi 'bg-danger'
-            $presensiAlertClass = 'alert-primary'; // Mengatur kelas CSS menjadi 'alert-danger'
+            $presensiBg = '#5f61e6'; // Mengatur kelas CSS menjadi 'bg-primary'
+            $presensiAlertClass = 'alert-primary'; // Mengatur kelas CSS menjadi 'alert-primary'
             break;
         default:
             // Jika hari ini adalah hari kerja
@@ -66,12 +67,12 @@
                 // Jika waktu saat ini masih sebelum pukul 10.00
                 $presensiMessage = 'Segera melakukan presensi pada hari ini.';
                 $presensiMessage .= '<br>Batas Presensi Pukul : 10.00';
-                $presensiBg = '#5f61e6';
+                $presensiBg = '#5f61e6'; // Mengatur kelas CSS menjadi 'bg-primary'
             }
             break;
     }
-
     ?>
+
     <!-- Menampilkan pesan presensi pada halaman HTML -->
     <div class="mx-4 mt-4 d-block">
         <div class="alert <?= $presensiAlertClass ?> alert-dismissible d-flex" role="alert">
@@ -113,9 +114,7 @@
                                 <td>
                                     @if ($currentTime > '10:00')
                                         <input type="checkbox" class="form-check-input" id="select-all" name="checkbox"
-                                            disabled>
-                                    @else
-                                        <input type="checkbox" class="form-check-input" id="select-all" name="checkbox">
+                                            {{ $currentTime > '10:00' ? 'disabled' : '' }}>
                                     @endif
                                 </td>
                                 <th class="nis">NIS</th>
@@ -135,13 +134,8 @@
                                     @if (count($students) > 0)
                                         <tr class="text-center">
                                             <td>
-                                                @if ($currentTime > '10:00')
-                                                    <input type="checkbox" class="form-check-input" id="select-all"
-                                                        name="checkbox" disabled>
-                                                @else
-                                                    <input type="checkbox" class="form-check-input" id="select-all"
-                                                        name="checkbox">
-                                                @endif
+                                                <input type="checkbox" class="form-check-input" id="select-all"
+                                                    name="checkbox" {{ $currentTime > '10:00' ? 'disabled' : '' }}>
                                             </td>
                                             <td class="nis">
                                                 <strong>{{ $data->nis }}</strong>
@@ -195,7 +189,7 @@
     <script>
         // Add event listener to the "Select All" checkbox
         document.getElementById("select-all").addEventListener("change", function() {
-            var checkboxes = document.getElementsByClassName("checkbox");
+            var checkboxes = document.getElementsByClassName("form-check-input");
             var numSelected = 0;
             for (var i = 0; i < checkboxes.length; i++) {
                 checkboxes[i].checked = this.checked;
@@ -210,7 +204,7 @@
         });
 
         // Add event listener to each checkbox
-        var checkboxes = document.getElementsByClassName("checkbox");
+        var checkboxes = document.getElementsByClassName("form-check-input");
         for (var i = 0; i < checkboxes.length; i++) {
             checkboxes[i].addEventListener("change", function() {
                 var numSelected = 0;

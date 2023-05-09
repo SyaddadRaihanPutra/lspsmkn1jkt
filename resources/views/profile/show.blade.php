@@ -1,12 +1,25 @@
+@extends('layouts.ketuakelas.main_layouts')
+
+@section('title', 'Profile')
+
+@section('content')
+@php
+    $role = "Ketua Kelas";
+@endphp
 <x-app-layout>
-    <x-slot name="header">
+    {{-- <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Profile') }}
         </h2>
-    </x-slot>
+    </x-slot> --}}
 
     <div>
         <div class="py-10 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div style="margin-bottom: 20px">
+                <a href="{{ route('dashboard') }}">Dashboard</a> &raquo;
+                <span>Profile</span>
+              </div>
+
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                 @livewire('profile.update-profile-information-form')
 
@@ -43,3 +56,5 @@
         </div>
     </div>
 </x-app-layout>
+
+@endsection
