@@ -22,6 +22,13 @@
             <div class="row">
                 <div class="col-xl">
                     <div class="mb-4 card">
+                            @if (session('success'))
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    {{ session('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                    </button>
+                                </div>
+                            @endif
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Tambah Data Kelas</h5>
                         </div>
@@ -88,13 +95,14 @@
         <script>
             function deleteClass(id, nama_kelas) {
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You are about to delete " + nama_kelas + "!",
+                    title: "Akan menghapus kelas " + nama_kelas + "!",
+                    html: `<small><i>(Tindakan ini bersifat permanen)</i></small>`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Yes, delete it!',
+                    confirmButtonText: 'Yakin, hapus!',
+                    cancelButtonText: 'Batal',
                     customClass: {
                         container: 'my-swal-container' // Add your custom class name here
                     }

@@ -45,7 +45,7 @@ class MasterController extends Controller
 
     public function master_kelas_create()
     {
-        return view('admin.masterkelas');
+        return view('admin.masterkelas')->with('success', 'Data berhasil disimpan.');
     }
 
     public function master_kelas_store(Request $request)
