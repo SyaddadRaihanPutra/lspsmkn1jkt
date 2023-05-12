@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MasterController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -41,8 +42,8 @@ Route::get('/register', function () {
 // });
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('settings', [MasterController::class, 'setting'])->name('settings');
-    Route::patch('settings', [MasterController::class, 'update_setting'])->name('setting.update');
+    Route::get('settings', [SettingController::class, 'setting'])->name('settings');
+    Route::patch('settings', [SettingController::class, 'update_setting'])->name('setting.update');
     Route::get('master-kelas', [MasterController::class, 'master_kelas'])->name('master-kelas');
     Route::get('master-kelas/create', [MasterController::class, 'master_kelas_create']);
     Route::post('master-kelas/store', [MasterController::class, 'master_kelas_store'])->name('master-kelas.store');

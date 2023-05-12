@@ -19,11 +19,18 @@
         <div class="row">
             <div class="col-xl">
                 <div class="mb-4 card">
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            </button>
+                        </div>
+                    @endif
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Edit Pengaturan Website</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('setting.update') }}" method="POST">
+                        <form action="{{ route('setting.update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
                             <div class="mb-3">
@@ -58,25 +65,12 @@
                             </div>
                             <div class="mb-3">
                                 <label class="mb-1">Logo Sekolah</label>
-                                <small><p>(Upload gambar ke penyedia layanan seperti <a href="https://postimg.cc">PostImg</a> )</p></small>
-                                <!-- Form HTML -->
-                                {{-- <form action="/update-logo" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <!-- Menambahkan token CSRF untuk keamanan -->
-                                    <div class="input-group input-group-merge">
-                                        <span class="input-group-text" id="basic-addon-search31"><i
-                                                class='bx bx-image'></i></span>
-                                        <input type="file" class="form-control" name="logo_sekolah"
-                                            id="basic-default-fullname">
-                                    </div>
-                                </form> --}}
-
-                                <div class="input-group input-group-merge">
-                                    <span class="input-group-text" id="basic-addon-search31"><i
-                                            class='bx bx-image'></i></span>
-                                    <input type="text" class="form-control" name="logo_sekolah"
-                                        value="{{ old('logo_sekolah') ?? $setting->logo_sekolah }}"
-                                        id="basic-default-fullname" placeholder="Contoh: SMKN 1 Jakarta">
+                                <small>
+                                    <p>(Upload gambar dengan ukuran minimal 60 piksel</a> )
+                                    </p>
+                                </small>
+                                <div>
+                                    <input type="file" name="logo_sekolah" class="form-control" />
                                 </div>
                             </div>
                             <div class="mb-3">

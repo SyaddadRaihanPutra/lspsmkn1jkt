@@ -41,13 +41,13 @@
 
 @section('content')
     <?php
+    date_default_timezone_set('Asia/Jakarta');
     $today = date('l'); // Mendapatkan hari saat ini dalam format 'Monday', 'Tuesday', dll.
     $currentTime = date('H:i'); // Mendapatkan waktu saat ini dalam format jam dan menit (24 jam)
-    
     $presensiMessage = ''; // Variabel untuk menyimpan pesan presensi
     $presensiAlertClass = ''; // Variabel untuk menyimpan kelas CSS untuk alert
     $presensiBg = ''; // Variabel untuk menyimpan kelas CSS untuk latar belakang
-    
+
     switch ($today) {
         case 'Saturday':
         case 'Sunday':
@@ -68,6 +68,7 @@
                 $presensiMessage = 'Segera melakukan presensi pada hari ini.';
                 $presensiMessage .= '<br>Batas Presensi Pukul : 10.00';
                 $presensiBg = '#5f61e6'; // Mengatur kelas CSS menjadi 'bg-primary'
+                $presensiAlertClass = 'alert-primary'; // Mengatur kelas CSS menjadi 'alert-primary'
             }
             break;
     }
@@ -93,8 +94,8 @@
             <div class="top-0 card-header sticky-top bg-light d-flex justify-content-between">
                 <h5 class="m-0">Data Siswa {{ str_replace('Ketua ', '', Auth::user()->name) }}</h5>
                 <span class="badge bg-primary rounded-5 d-flex align-items-center">
-                    <small>Data Dipilih: &nbsp;</small>
-                    <small id="num-selected" class="m-0 text-center">0</small>
+                    <small>Total Siswa: &nbsp;</small>
+                    <small class="m-0 text-center">{{ $studentCount }}</small>
                 </span>
             </div>
 
@@ -112,10 +113,8 @@
                         <thead class="table-primary">
                             <tr class="text-center align-middle">
                                 <td>
-                                    @if ($currentTime > '10:00')
-                                        <input type="checkbox" class="form-check-input" id="select-all" name="checkbox"
-                                            {{ $currentTime > '10:00' ? 'disabled' : '' }}>
-                                    @endif
+                                    <input type="checkbox" class="form-check-input" id="select-all" name="checkbox"
+                                        {{ $currentTime > '10:00' ? 'disabled' : '' }}>
                                 </td>
                                 <th class="nis">NIS</th>
                                 <th>Nama</th>
@@ -135,7 +134,8 @@
                                         <tr class="text-center">
                                             <td>
                                                 <input type="checkbox" class="form-check-input" id="select-all"
-                                                    name="checkbox" {{ $currentTime > '10:00' ? 'disabled' : '' }}>
+                                                    name="checkbox" {{ $currentTime > '10:00' ? 'disabled' : '' }}
+                                                    value="{{ $data->id }}">
                                             </td>
                                             <td class="nis">
                                                 <strong>{{ $data->nis }}</strong>
@@ -154,14 +154,23 @@
                                                 @endforeach
                                             </td>
                                             <td>
-                                                <div class="gap-2 d-flex justify-content-center">
-                                                    <div class="gap-2 kehadiran">
-                                                        <button type="button" class="btn btn-primary btn-sm">HADIR</button>
-                                                        <button type="button" class="btn btn-warning btn-sm">IZIN</button>
-                                                        <button type="button" class="btn btn-danger btn-sm">ALPHA</button>
-                                                        <button type="button" class="btn btn-dark btn-sm">PKL</button>
+                                                @if ($currentTime > '10:00')
+                                                    <p>
+                                                        Melewati Batas Waktu Presensi
+                                                    </p>
+                                                @else
+                                                    <div class="gap-2 d-flex justify-content-center">
+                                                        <div class="gap-2 kehadiran">
+                                                            <button type="button"
+                                                                class="btn btn-primary btn-sm">HADIR</button>
+                                                            <button type="button"
+                                                                class="btn btn-warning btn-sm">IZIN</button>
+                                                            <button type="button"
+                                                                class="btn btn-danger btn-sm">ALPHA</button>
+                                                            <button type="button" class="btn btn-dark btn-sm">PKL</button>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                @endif
                                             </td>
                                             <td></td>
                                         </tr>
@@ -177,7 +186,7 @@
                 </div>
                 @if ($students->isEmpty())
                 @else
-                    @if ($currentTime > '10.00')
+                    @if ($currentTime > '10:00')
                         <button class="m-auto mt-3 btn btn-success d-block" disabled>Kirim Absen</button>
                     @else
                         <button class="m-auto mt-3 btn btn-success d-block">Kirim Absen</button>

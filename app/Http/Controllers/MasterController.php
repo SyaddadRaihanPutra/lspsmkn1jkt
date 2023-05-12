@@ -13,27 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 class MasterController extends Controller
 {
-    public function setting()
-    {
-        $setting = Setting::first();
-        $role = "Administrator";
-        return view('admin.setting', compact('setting', 'role'));
-    }
-    public function update_setting(Request $request)
-    {
-        $setting = Setting::first();
-        $setting->update([
-            'nama_sekolah' => $request->nama_sekolah,
-            'nama_sekolah_long' => $request->nama_sekolah_long,
-            'alamat_sekolah' => $request->alamat_sekolah,
-            'logo_sekolah' => $request->logo_sekolah,
-            'url_web_sekolah' => $request->url_web_sekolah,
-        ]);
-
-        return redirect()->back()->with('success', 'Data berhasil diupdate.');
-    }
-
-
     //FUNCTION KELAS
 
     public function master_kelas()

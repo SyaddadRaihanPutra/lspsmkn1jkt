@@ -45,7 +45,13 @@ class DashboardController extends Controller
                     ->where('jurusan_id', $jurusan_id)
                     ->get();
             }
-            return view('ketuakelas.dashboard', compact('students', 'role')); //ROLE KETUA KELAS
+
+            $studentCount = DB::table('students')
+                ->where('kelas_id', $kelas_id)
+                ->where('jurusan_id', $jurusan_id)
+                ->count();
+
+            return view('ketuakelas.dashboard', compact('students', 'role', 'studentCount')); //ROLE KETUA KELAS
         }
         if ($role == '4') {
             return view('walikelas.dashboard'); //ROLE WALI KELAS

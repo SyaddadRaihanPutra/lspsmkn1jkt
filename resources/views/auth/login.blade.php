@@ -166,7 +166,7 @@
                         <!-- Logo -->
                         <div class="mb-4 app-brand">
                             <a href="{{ $setting->url_sekolah }}" class="gap-2 app-brand-link">
-                                <img src="{{ $setting->logo_sekolah }}" class="img-fluid" width="60" alt="">
+                                <img src="{{ asset('storage/logo_sekolah/' . $setting->logo_sekolah) }}" class="img-fluid" width="60" alt="">
                                 <span class="text-uppercase app-brand-text demo text-body fw-bolder fs-1"
                                     style="font-family: 'Baumans', cursive;">&nbsp;E - Absensi</span>
                             </a>
