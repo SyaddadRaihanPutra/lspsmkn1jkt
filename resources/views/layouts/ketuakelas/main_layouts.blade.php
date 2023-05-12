@@ -113,7 +113,7 @@
                 <div class="mb-2 app-brand demo">
                     <a href="{{ $setting->url_web_sekolah }}" target="blank" class="app-brand-link">
                         <span class="app-brand-logo demo">
-                            <img src="{{ $setting->logo_sekolah }}" width="50" alt="">
+                            <img src="{{ asset('storage/logo_sekolah/' . $setting->logo_sekolah) }}" width="50" alt="">
                         </span>
                         <span class="app-brand-text menu-text fw-bolder ms-2 text-uppercase">
                             {{ $setting->nama_sekolah }}
