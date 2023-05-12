@@ -65,7 +65,7 @@
                             <div class="mb-3">
                                 <label class="mb-1">Logo Sekolah</label>
                                 <small>
-                                    <p>(Upload gambar dengan ukuran minimal 60 piksel</a> )
+                                    <p><i>(Upload gambar dengan ukuran minimal 60 piksel)</i>
                                     </p>
                                 </small>
                                 <div>
