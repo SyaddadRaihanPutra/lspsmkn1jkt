@@ -85,7 +85,8 @@
                 <div class="mb-2 app-brand demo">
                     <a href="{{ $setting->url_web_sekolah }}" target="blank" class="app-brand-link">
                         <span class="app-brand-logo demo">
-                            <img src="{{ asset('storage/logo_sekolah/' . $setting->logo_sekolah) }}" width="50" alt="">
+                            <img src="{{ asset('storage/logo_sekolah/' . $setting->logo_sekolah) }}" width="50"
+                                alt="">
                         </span>
                         <span class="app-brand-text menu-text fw-bolder ms-2 text-uppercase">
                             {{ $setting->nama_sekolah }}
@@ -450,6 +451,10 @@
             preloader.classList.add('hide-preloader');
         }, 500);
     </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>
