@@ -49,7 +49,7 @@
                                     <span class="input-group-text" id="basic-addon-search31"><i class='bx bx-text'></i></span>
                                     <input type="text" class="form-control" name="nama_sekolah_long"
                                         value="{{ old('nama_sekolah_long') ?? $setting->nama_sekolah_long }}"
-                                        id="basic-default-fullname" placeholder="Contoh: SMKN 1 Jakarta">
+                                        id="basic-default-fullname" placeholder="Contoh: SMK Negeri 1 Jakarta">
                                 </div>
                             </div>
                             <div class="mb-3">
