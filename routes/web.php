@@ -45,13 +45,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('settings', [SettingController::class, 'setting'])->name('settings');
     Route::patch('settings', [SettingController::class, 'update_setting'])->name('setting.update');
     Route::get('master-kelas', [MasterController::class, 'master_kelas'])->name('master-kelas');
-    Route::get('master-kelas/create', [MasterController::class, 'master_kelas_create']);
+    Route::get('master-kelas/create', [MasterController::class, 'master_kelas_create'])->name('master-kelas.create');
     Route::post('master-kelas/store', [MasterController::class, 'master_kelas_store'])->name('master-kelas.store');
     Route::delete('master-kelas/delete/{id}', [MasterController::class, 'destroy'])->name('master-kelas.delete');
 
 
     Route::get('master-jurusan', [MasterController::class, 'master_jurusan'])->name('master-jurusan');
     Route::get('master-jurusan/{id}', [MasterController::class, 'jurusan_show'])->name('master-jurusan.show');
+    Route::get('master-jurusan/create', [MasterController::class, 'master_jurusan_create'])->name('master-jurusan.create');
+    Route::post('master-jurusan/store', [MasterController::class, 'master_jurusan_store'])->name('master-jurusan.store');
+    Route::delete('master-jurusan/delete/{id}', [MasterController::class, 'jurusan_destroy'])->name('master-jurusan.delete');
 
 
     Route::get('master-kk', [MasterController::class, 'master_user'])->name('master-user');

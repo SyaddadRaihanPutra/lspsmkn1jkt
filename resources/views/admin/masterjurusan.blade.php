@@ -24,7 +24,8 @@
                             <h5 class="mb-0">Tambah Data Jurusan</h5>
                         </div>
                         <div class="card-body">
-                            <form>
+                            <form method="POST" action="{{ route('master-jurusan.store') }}">
+                                @csrf
                                 <div class="mb-3">
                                     <label class="form-label" for="kelas_id">Kelas</label>
                                     <select name="kelas_id" id="kelas_id" class="form-select" required>
@@ -36,7 +37,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Nama Jurusan</label>
-                                    <input type="text" class="form-control" id="basic-default-fullname"
+                                    <input type="text" class="form-control" name="nama_jurusan" id="basic-default-fullname"
                                         placeholder="Contoh: TKP 1">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Send</button>

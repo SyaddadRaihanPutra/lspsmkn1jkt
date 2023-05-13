@@ -47,7 +47,6 @@ class MasterController extends Controller
 
     // FUNCTION JURUSAN
 
-
     public function master_jurusan()
     {
         $role = "Administrator";
@@ -59,6 +58,32 @@ class MasterController extends Controller
     {
         return Jurusan::findOrFail($id);
     }
+
+    public function master_jurusan_create()
+    {
+        return view('admin.masterjurusan')->with('success', 'Data berhasil disimpan.');
+    }
+
+    public function master_jurusan_store(Request $request)
+    {
+        Jurusan::create([
+            'kelas_id' => $request->input('kelas_id'),
+            'nama_jurusan' => $request->input('nama_jurusan'),
+        ]);
+        return redirect()->back()->with('success', 'Data berhasil disimpan.');
+    }
+
+    public function jurusan_destroy($id)
+    {
+        $jurusan = Jurusan::find($id);
+        if (!$jurusan) {
+            return redirect()->back()->with('error', 'Data not found');
+        }
+        $jurusan->delete();
+        return redirect()->back()->with('success', 'Data berhasil dihapus.');
+    }
+
+    // FUNCTION SISWA
 
     public function master_user(Request $request)
     {
