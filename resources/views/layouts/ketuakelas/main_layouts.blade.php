@@ -113,7 +113,8 @@
                 <div class="mb-2 app-brand demo">
                     <a href="{{ $setting->url_web_sekolah }}" target="blank" class="app-brand-link">
                         <span class="app-brand-logo demo">
-                            <img src="{{ asset('storage/logo_sekolah/' . $setting->logo_sekolah) }}" width="50" alt="">
+                            <img src="{{ asset('storage/logo_sekolah/' . $setting->logo_sekolah) }}" width="50"
+                                alt="">
                         </span>
                         <span class="app-brand-text menu-text fw-bolder ms-2 text-uppercase">
                             {{ $setting->nama_sekolah }}
@@ -349,7 +350,27 @@
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
                                 <i class='bx bx-time-five'></i> &nbsp; <span
-                                    class="fw-bold">{{ now()->isoFormat('dddd, D MMMM Y') }}</span>
+                                    class="fw-bold">{{ now()->isoFormat('dddd, D MMMM Y') }} | <span
+                                        id="clock" class="cursor-pointer badge bg-danger rounded-pill" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="" data-bs-original-title="<small>UTC+07:00</small>"></span>
+                                    <script>
+                                        function updateTime() {
+                                            const options = {
+                                                timeZone: 'Asia/Jakarta',
+                                                hour12: false
+                                            };
+                                            const currentTime = new Date().toLocaleTimeString('en-US', options);
+
+                                            // Tambahkan sekat ":" antara jam, menit, dan detik
+                                            const formattedTime = currentTime.replace(/(\d{2})(\d{2})(\d{2})/, '$1:$2:$3');
+
+                                            // Mengupdate elemen dengan ID 'clock' dengan waktu terkini
+                                            document.getElementById('clock').textContent = formattedTime;
+                                        }
+
+                                        // Memperbarui waktu setiap detik (1000 milidetik)
+                                        setInterval(updateTime, 1000);
+                                    </script>
+                                </span>
                             </div>
                         </div>
                         <!-- /Search -->
@@ -430,7 +451,8 @@
                 <!-- Footer -->
 
                 <!-- Tombol Back to Top -->
-                <button id="btn-back-to-top" class="btn btn-primary btn-lg" title="Back to Top"><i class='bx bxs-up-arrow'></i></button>
+                <button id="btn-back-to-top" class="btn btn-primary btn-lg" title="Back to Top"><i
+                        class='bx bxs-up-arrow'></i></button>
 
                 <hr>
                 <footer class="mb-3 content-footer footer bg-footer-theme">
@@ -571,26 +593,6 @@
             const preloader = document.querySelector('.preloader');
             preloader.classList.add('hide-preloader');
         }, 500);
-    </script>
-
-    <script>
-        $('#myModal').modal('hide');
-        $(document).ready(function() {
-            $('.detail-btn').click(function() {
-                const id = $(this).attr('data-id');
-                $.ajax({
-                    url: 'master-jurusan/' + id,
-                    type: 'GET',
-                    data: {
-                        "id": id
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        $('#nama_jurusan').html(data.nama_jurusan);
-                    }
-                })
-            });
-        });
     </script>
 </body>
 

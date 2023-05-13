@@ -114,7 +114,7 @@
                             <tr class="text-center align-middle">
                                 <td>
                                     <input type="checkbox" class="form-check-input" id="select-all" name="checkbox"
-                                        {{ $currentTime > '10:00' ? 'disabled' : '' }}>
+                                        {{ $currentTime > '10:00' || $currentDay === 'Saturday' || $currentDay === 'Sunday' ? 'disabled' : '' }}>
                                 </td>
                                 <th class="nis">NIS</th>
                                 <th>Nama</th>
@@ -134,8 +134,9 @@
                                         <tr class="text-center">
                                             <td>
                                                 <input type="checkbox" class="form-check-input" id="select-all"
-                                                    name="checkbox" {{ $currentTime > '10:00' ? 'disabled' : '' }}
-                                                    value="{{ $data->id }}">
+                                                    name="checkbox" value="{{ $data->id }}"
+                                                    {{ $currentTime > '10:00' || $currentDay === 'Saturday' || $currentDay === 'Sunday' ? 'disabled' : '' }}>
+
                                             </td>
                                             <td class="nis">
                                                 <strong>{{ $data->nis }}</strong>
@@ -186,7 +187,7 @@
                 </div>
                 @if ($students->isEmpty())
                 @else
-                    @if ($currentTime > '10:00')
+                    @if ($currentTime > '10:00' || $currentDay === 'Saturday' || $currentDay === 'Sunday')
                         <button class="m-auto mt-3 btn btn-success d-block" disabled>Kirim Absen</button>
                     @else
                         <button class="m-auto mt-3 btn btn-success d-block">Kirim Absen</button>
