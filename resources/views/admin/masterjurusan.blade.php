@@ -20,6 +20,13 @@
             <div class="row">
                 <div class="col-xl">
                     <div class="mb-4 card">
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                </button>
+                            </div>
+                        @endif
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Tambah Data Jurusan</h5>
                         </div>
@@ -37,8 +44,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Nama Jurusan</label>
-                                    <input type="text" class="form-control" name="nama_jurusan" id="basic-default-fullname"
-                                        placeholder="Contoh: TKP 1">
+                                    <input type="text" class="form-control" name="nama_jurusan"
+                                        id="basic-default-fullname" placeholder="Contoh: TKP 1">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Send</button>
                             </form>
@@ -73,44 +80,51 @@
                                                     {{ $j->nama_jurusan }}
                                                 </td>
                                                 <td>
-                                                    <button data-id="{{ $j->id }}"
-                                                        class="btn btn-warning btn-sm detail-btn" data-bs-toggle="modal"
-                                                        data-bs-target="#myModal">
-                                                        <i class='bx bx-low-vision'></i> Detail
-                                                    </button>
+                                                    <form class="d-inline" id="delete-form-{{ $j->id }}"
+                                                        action="{{ route('master-jurusan.delete', $j->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                            data-toggle="modal"
+                                                            data-target="#deleteModal{{ $j->id }}">
+                                                            <i class="bx bx-trash"></i> Hapus
+                                                        </button>
 
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="myModal" tabindex="-1"
-                                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                                        Detail Jurusan</h1>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <p><strong>Kelas:</strong>
-                                                                        @foreach (\App\Models\Kelas::pluck('nama_kelas', 'id') as $kelas_id => $nama_kelas)
-                                                                            @if ($j->kelas_id == $kelas_id)
-                                                                                {{ $nama_kelas }}
-                                                                            @endif
-                                                                        @endforeach
-                                                                    </p>
-                                                                    <p><strong>Jurusan:</strong> <span
-                                                                            id="nama_jurusan"></span></p>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Tutup</button>
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="deleteModal{{ $j->id }}"
+                                                            tabindex="-1" role="dialog"
+                                                            aria-labelledby="deleteModalLabel{{ $j->id }}"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered"
+                                                                style="width: 25rem;">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="deleteModalLabel{{ $j->id }}">
+                                                                            Konfirmasi Hapus Data</h5>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Apakah Anda yakin ingin menghapus data ini?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Batal</button>
+                                                                        <button type="submit" class="text-white btn"
+                                                                            style="background-color: #e57373"
+                                                                            onclick="event.preventDefault(); document.getElementById('delete-form-{{ $j->id }}').submit();">
+                                                                            Hapus
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </form>
 
-                                                    <a href="#" class="btn btn-danger btn-sm"> <i
-                                                            class='bx bx-trash'></i> Hapus</a>
+
                                                 </td>
                                             </tr>
                                         @endforeach
