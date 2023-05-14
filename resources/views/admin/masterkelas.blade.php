@@ -10,7 +10,9 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1">
                     <li class="breadcrumb-item">
-                        <a href="#">DATA MASTER</a>
+                        <span>
+                            <i class="menu-icon tf-icons bx bx-box"></i>
+                        </span>
                     </li>
                     <li class="breadcrumb-item active">
                         Data Kelas

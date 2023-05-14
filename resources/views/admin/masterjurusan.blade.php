@@ -8,6 +8,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1">
                     <li class="breadcrumb-item"><span class="align-middle">
+                        <span>
                             <i class="menu-icon tf-icons bx bx-box"></i>
                         </span>
                     </li>
@@ -147,12 +148,11 @@
                                     </tbody>
                                 </table>
                                 <div class="mt-4">
-                                    <ul class="pagination">
+                                    <ul class="pagination pagination-sm justify-content-start">
                                         <?php
                                         $paginator = $jurusan->onEachSide(1);
                                         $pages = $paginator->getUrlRange(1, $paginator->lastPage());
                                         ?>
-
                                         {{-- Tombol previous --}}
                                         @if ($paginator->currentPage() > 1)
                                             <li class="page-item">
@@ -179,9 +179,8 @@
                                             </li>
                                         @endif
                                     </ul>
+                                    <small>Showing {{ $paginator->firstItem() }} to {{ $paginator->lastItem() }} of {{ $paginator->total() }} entries</small>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>

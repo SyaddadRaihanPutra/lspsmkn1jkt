@@ -10,7 +10,9 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1">
                     <li class="breadcrumb-item">
-                        <a href="#">DATA MASTER</a>
+                        <span>
+                            <i class="menu-icon tf-icons bx bx-box"></i>
+                        </span>
                     </li>
                     <li class="breadcrumb-item active">
                         Data Ketua Kelas
@@ -29,7 +31,8 @@
                             <form method="POST" action="{{ route('master-user.store') }}">
                                 @csrf
                                 <div class="mb-3">
-                                    <label class="form-label" for="nama_ketua_kelas">Nama Ketua Kelas<span class="text-danger">*</span></label>
+                                    <label class="form-label" for="nama_ketua_kelas">Nama Ketua Kelas<span
+                                            class="text-danger">*</span></label>
                                     <input list="nama-ketua-kelas" class="form-control" id="nama_ketua_kelas" name="name"
                                         placeholder="Contoh: Ketua Kelas X TKP 1" required>
                                     <datalist id="nama-ketua-kelas">
@@ -42,7 +45,8 @@
                                         placeholder="example@smkn1jkt.sch.id" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="password">Password<span class="text-danger">*</span></label>
+                                    <label class="form-label" for="password">Password<span
+                                            class="text-danger">*</span></label>
                                     <input type="password" class="form-control" id="password" name="password"
                                         placeholder="******" required>
                                 </div>
@@ -60,7 +64,8 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="kelas_id">Nama Kelas<span class="text-danger">*</span></label>
+                                    <label class="form-label" for="kelas_id">Nama Kelas<span
+                                            class="text-danger">*</span></label>
                                     <select name="kelas_id" id="kelas_id" class="form-select" required>
                                         <option value="">---- Pilih Kelas ----</option>
                                         @foreach (\App\Models\Kelas::pluck('nama_kelas', 'id') as $kelas_id => $nama_kelas)
@@ -69,7 +74,8 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="jurusan_id">Nama Jurusan<span class="text-danger">*</span></label>
+                                    <label class="form-label" for="jurusan_id">Nama Jurusan<span
+                                            class="text-danger">*</span></label>
                                     <select name="jurusan_id" id="jurusan_id" class="form-select" required>
                                         <option value="">---- Pilih Jurusan ----</option>
                                         @foreach (\App\Models\Jurusan::pluck('nama_jurusan', 'id')->filter(function ($nama_jurusan, $jurusan_id) {
