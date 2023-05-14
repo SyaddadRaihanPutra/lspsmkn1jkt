@@ -188,7 +188,12 @@
                 @if ($students->isEmpty())
                 @else
                     @if ($currentTime > '10:00' || $currentDay === 'Saturday' || $currentDay === 'Sunday')
-                        <button class="m-auto mt-3 btn btn-success d-block" disabled>Kirim Absen</button>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="text-center" style="cursor: not-allowed;">
+                          <button class="m-auto mt-3 btn btn-success" disabled>Kirim Absen</button>
+                        </div>
+                      </div>
+
                     @else
                         <button class="m-auto mt-3 btn btn-success d-block">Kirim Absen</button>
                     @endif

@@ -65,8 +65,7 @@
                             <div class="mb-3">
                                 <label class="mb-1">Logo Sekolah</label>
                                 <small>
-                                    <p><i>(Upload gambar dengan ukuran minimal 60 piksel)</i>
-                                    </p>
+                                    <p>(Maks. 64 KB | JPG | PNG | GIF)</p>
                                 </small>
                                 <div>
                                     <input type="file" name="logo_sekolah" class="form-control" />
