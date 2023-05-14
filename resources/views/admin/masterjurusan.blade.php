@@ -58,6 +58,11 @@
                             <h5 class="mb-0">Data Jurusan</h5>
                         </div>
                         <div class="card-body">
+                            <form class="mb-4 d-flex" method="GET" action="/master-jurusan">
+                                <input class="form-control me-2" type="search" name="search" placeholder="Search"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-primary" type="submit">Search</button>
+                            </form>
                             <div class="table-responsive text-nowrap">
                                 <table class="table table-bordered table-striped">
                                     <thead class="text-center">
@@ -68,71 +73,103 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-center">
+                                        @if ($jurusan->count() > 0)
                                         @foreach ($jurusan as $j)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>
-                                                    @foreach (\App\Models\Kelas::pluck('nama_kelas', 'id') as $kelas_id => $nama_kelas)
-                                                        @if ($j->kelas_id == $kelas_id)
-                                                            {{ $nama_kelas }}
-                                                        @endif
-                                                    @endforeach
-                                                    {{ $j->nama_jurusan }}
-                                                </td>
-                                                <td>
-                                                    <form class="d-inline" id="delete-form-{{ $j->id }}"
-                                                        action="{{ route('master-jurusan.delete', $j->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-danger btn-sm"
-                                                            data-toggle="modal"
-                                                            data-target="#deleteModal{{ $j->id }}">
-                                                            <i class="bx bx-trash"></i> Hapus
-                                                        </button>
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>
+                                                @foreach (\App\Models\Kelas::pluck('nama_kelas', 'id') as $kelas_id => $nama_kelas)
+                                                    @if ($j->kelas_id == $kelas_id)
+                                                        {{ $nama_kelas }}
+                                                    @endif
+                                                @endforeach
+                                                {{ $j->nama_jurusan }}
+                                            </td>
+                                            <td>
+                                                <form class="d-inline" id="delete-form-{{ $j->id }}"
+                                                    action="{{ route('master-jurusan.delete', $j->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                        data-toggle="modal"
+                                                        data-target="#deleteModal{{ $j->id }}">
+                                                        <i class="bx bx-trash"></i> Hapus
+                                                    </button>
 
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="deleteModal{{ $j->id }}"
-                                                            tabindex="-1" role="dialog"
-                                                            aria-labelledby="deleteModalLabel{{ $j->id }}"
-                                                            aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered"
-                                                                style="width: 25rem;">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title"
-                                                                            id="deleteModalLabel{{ $j->id }}">
-                                                                            Konfirmasi Hapus Data</h5>
-                                                                        <button type="button" class="btn-close"
-                                                                            data-dismiss="modal"
-                                                                            aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        Apakah Anda yakin ingin menghapus data ini?
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary"
-                                                                            data-dismiss="modal">Batal</button>
-                                                                        <button type="submit" class="text-white btn"
-                                                                            style="background-color: #e57373"
-                                                                            onclick="event.preventDefault(); document.getElementById('delete-form-{{ $j->id }}').submit();">
-                                                                            Hapus
-                                                                        </button>
-                                                                    </div>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="deleteModal{{ $j->id }}"
+                                                        tabindex="-1" role="dialog"
+                                                        aria-labelledby="deleteModalLabel{{ $j->id }}"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered"
+                                                            style="width: 25rem;">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title"
+                                                                        id="deleteModalLabel{{ $j->id }}">
+                                                                        Konfirmasi Hapus Data</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Apakah Anda yakin ingin menghapus data ini?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Batal</button>
+                                                                    <button type="submit" class="text-white btn"
+                                                                        style="background-color: #e57373"
+                                                                        onclick="event.preventDefault(); document.getElementById('delete-form-{{ $j->id }}').submit();">
+                                                                        Hapus
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </form>
-
-
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                                    </div>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="3">Data tidak ditemukan</td>
+                                        </tr>
+                                        @endif
                                     </tbody>
                                 </table>
                                 <div class="mt-4">
-                                    {{ $jurusan->links() }}
+                                    <ul class="pagination">
+                                        <?php
+                                        $paginator = $jurusan->onEachSide(1);
+                                        $pages = $paginator->getUrlRange(1, $paginator->lastPage());
+                                        ?>
+
+                                        {{-- Tombol previous --}}
+                                        @if ($paginator->currentPage() > 1)
+                                            <li class="page-item">
+                                                <a class="page-link" href="{{ $paginator->url($paginator->currentPage() - 1) }}">&laquo;</a>
+                                            </li>
+                                        @endif
+
+                                        {{-- Nomor halaman --}}
+                                        <?php foreach ($pages as $page => $url): ?>
+                                            <li class="page-item{{ ($paginator->currentPage() == $page) ? ' active' : '' }}">
+                                                <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                            </li>
+                                        <?php endforeach; ?>
+
+                                        {{-- Tombol next --}}
+                                        @if ($paginator->hasMorePages())
+                                            <li class="page-item">
+                                                <a class="page-link" href="{{ $paginator->url($paginator->currentPage() + 1) }}">&raquo;</a>
+                                            </li>
+                                        @endif
+                                    </ul>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>

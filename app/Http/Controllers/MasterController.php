@@ -47,16 +47,20 @@ class MasterController extends Controller
 
     // FUNCTION JURUSAN
 
-    public function master_jurusan()
+    public function master_jurusan(Request $request)
     {
         $role = "Administrator";
         $jurusan = DB::table('jurusan')->paginate(10);
-        return view('admin.masterjurusan', compact('jurusan', 'role'));
-    }
 
-    public function jurusan_show($id)
-    {
-        return Jurusan::findOrFail($id);
+        if ($request->has('search')) {
+            $jurusan = Jurusan::where('nama_jurusan', 'LIKE', '%' . $request->search . '%')->paginate(10);
+        } else {
+            $jurusan = DB::table('jurusan')->paginate(10);
+            if ($jurusan->isEmpty()) {
+                return "Data Tidak Ditemukan";
+            }
+        }
+        return view('admin.masterjurusan', compact('jurusan', 'role'));
     }
 
     public function master_jurusan_create()
