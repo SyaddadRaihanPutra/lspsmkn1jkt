@@ -87,7 +87,7 @@ class MasterController extends Controller
         return redirect()->back()->with('success', 'Data berhasil dihapus.');
     }
 
-    // FUNCTION SISWA
+    // FUNCTION KETUA KELAS
 
     public function master_user(Request $request)
     {
@@ -125,6 +125,29 @@ class MasterController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => $request->role,
+            'kelas_id' => $request->kelas_id,
+            'jurusan_id' => $request->jurusan_id,
+        ]);
+        return redirect()->back()->with('success', 'Data berhasil disimpan.');
+    }
+
+    public function master_user_edit($id)
+{
+    $user = User::find($id);
+    $ketuakelas = DB::table('users')->whereNotNull('kelas_id');
+    $password = $user->password;
+
+    return response()->json([
+        'user' => $user,
+        'ketuakelas' => $ketuakelas,
+        'password' => $password,
+    ]);
+}
+    public function master_user_update(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->update([
+            'name' => $request->name,
             'kelas_id' => $request->kelas_id,
             'jurusan_id' => $request->jurusan_id,
         ]);

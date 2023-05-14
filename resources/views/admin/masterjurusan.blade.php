@@ -193,25 +193,4 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
             integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous">
         </script>
-
-
-        <script>
-            $('#myModal').modal('hide');
-            $(document).ready(function() {
-                $('.detail-btn').click(function() {
-                    const id = $(this).attr('data-id');
-                    $.ajax({
-                        url: 'master-jurusan/' + id,
-                        type: 'GET',
-                        data: {
-                            "id": id
-                        },
-                        success: function(data) {
-                            // console.log(data);
-                            $('#nama_jurusan').html(data.nama_jurusan); //set nama jurusan ke modal
-                        }
-                    })
-                });
-            });
-        </script>
     @endsection

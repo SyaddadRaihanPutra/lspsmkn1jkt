@@ -60,6 +60,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('master-kk', [MasterController::class, 'master_user'])->name('master-user');
     Route::get('master-kk/create', [MasterController::class, 'master_user_create']);
     Route::post('master-kk/store', [MasterController::class, 'master_user_store'])->name('master-user.store');
+    Route::get('master-kk/{id}/edit', [MasterController::class, 'master_user_edit'])->name('master-user.edit');
+    Route::put('master-kk/{id}', [MasterController::class, 'master_user_update'])->name('master-user.update');
     Route::delete('master-kk/delete/{id}', [MasterController::class, 'master_user_destroy'])->name('master-user.delete');
 
     Route::get('master-wk', [MasterController::class, 'master_wk'])->name('master-wk');
