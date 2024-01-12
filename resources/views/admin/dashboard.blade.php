@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                     <span class="mb-1 fw-semibold d-block">Jumlah Siswa</span>
-                                    <h3 class="mb-2 card-title">{{ $count }}</h3>
+                                    <h3 class="mb-2 card-title">#</h3>
                                     <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>
                                         +72.80%</small>
                                 </div>

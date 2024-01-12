@@ -12,9 +12,6 @@
 
     <meta name="description" content="" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href=" assets/img/favicon/favicon.ico" />
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,23 +19,26 @@
         href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet" />
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/LSP-SMKN1.ico') }}" />
+
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href=" assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href=" assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href=" assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href=" assets/css/demo.css" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}"
+        class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href=" assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
-    <link rel="stylesheet" href=" assets/vendor/libs/apex-charts/apex-charts.css" />
-
-    <!-- Page CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
     <!-- Helpers -->
-    <script src=" assets/vendor/js/helpers.js"></script>
+    <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
@@ -116,7 +116,7 @@
                         <li class="menu-item">
                             <a href="{{ route('settings') }}" class="menu-link">
                                 <i class='bx bx-cog menu-icon tf-icons'></i>
-                                <div data-i18n="Authentications">Pengaturan Website</div>
+                                <div data-i18n="Authentications">Pengaturan Sistem</div>
                             </a>
                         </li>
 
@@ -125,11 +125,10 @@
                                 <i class="menu-icon tf-icons bx bx-box"></i>
                                 <div data-i18n="Layouts">Data Master</div>
                             </a>
-
                             <ul class="menu-sub">
                                 <li class="menu-item">
-                                    <a href="{{ route('master-kelas') }}" class="menu-link">
-                                        <div data-i18n="Without menu">Data Kelas</div>
+                                    <a href="{{ route('master-sekolah') }}" class="menu-link">
+                                        <div data-i18n="Without navbar">Data Sekolah</div>
                                     </a>
                                 </li>
                                 <li class="menu-item">
@@ -138,18 +137,8 @@
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="{{ route('master-user') }}" class="menu-link">
-                                        <div data-i18n="Container">Data Ketua Kelas</div>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="{{ route('master-wk') }}" class="menu-link">
-                                        <div data-i18n="Fluid">Data Wali Kelas</div>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="layouts-blank.html" class="menu-link">
-                                        <div data-i18n="Blank">Data</div>
+                                    <a href="{{ route('master-asesor') }}" class="menu-link">
+                                        <div data-i18n="Without navbar">Data Asesor</div>
                                     </a>
                                 </li>
                             </ul>

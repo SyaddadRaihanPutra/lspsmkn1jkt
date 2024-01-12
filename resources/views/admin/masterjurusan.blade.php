@@ -36,15 +36,6 @@
                             <form method="POST" action="{{ route('master-jurusan.store') }}">
                                 @csrf
                                 <div class="mb-3">
-                                    <label class="form-label" for="kelas_id">Kelas</label>
-                                    <select name="kelas_id" id="kelas_id" class="form-select" required>
-                                        <option value="">---- Pilih Kelas ----</option>
-                                        @foreach (\App\Models\Kelas::pluck('nama_kelas', 'id') as $kelas_id => $nama_kelas)
-                                            <option value="{{ $kelas_id }}">{{ $nama_kelas }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Nama Jurusan</label>
                                     <input type="text" class="form-control" name="nama_jurusan"
                                         id="basic-default-fullname" placeholder="Contoh: TKP 1">
@@ -80,14 +71,10 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>
-                                                        @foreach (\App\Models\Kelas::pluck('nama_kelas', 'id') as $kelas_id => $nama_kelas)
-                                                            @if ($j->kelas_id == $kelas_id)
-                                                                {{ $nama_kelas }}
-                                                            @endif
-                                                        @endforeach
                                                         {{ $j->nama_jurusan }}
                                                     </td>
                                                     <td>
+                                                        <a href="{{ route('master-jurusan.update', $j->id) }}/edit" class="btn btn-primary btn-sm">Edit</a>
                                                         <form class="d-inline" id="delete-form-{{ $j->id }}"
                                                             action="{{ route('master-jurusan.delete', $j->id) }}"
                                                             method="POST">
@@ -117,11 +104,6 @@
                                                                         </div>
                                                                         <div class="modal-body">
                                                                             Apakah Anda yakin ingin menghapus
-                                                                            @foreach (\App\Models\Kelas::pluck('nama_kelas', 'id') as $kelas_id => $nama_kelas)
-                                                                                @if ($j->kelas_id == $kelas_id)
-                                                                                    {{ $nama_kelas }}
-                                                                                @endif
-                                                                            @endforeach
                                                                             {{ $j->nama_jurusan }}?
                                                                         </div>
                                                                         <div class="modal-footer">

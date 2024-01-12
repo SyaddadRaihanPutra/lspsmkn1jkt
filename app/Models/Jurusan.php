@@ -10,11 +10,7 @@ class Jurusan extends Model
     use HasFactory;
     protected $table = 'jurusan';
     protected $fillable = [
-        'kelas_id',
         'nama_jurusan',
     ];
-    public function kelas()
-    {
-        return $this->belongsTo(Kelas::class);
-    }
+
 }
