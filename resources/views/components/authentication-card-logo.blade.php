@@ -1,3 +1,4 @@
 <a href="{{ route('dashboard') }}">
-    <img src="{{ $setting->logo_sekolah }}" alt="{{ $setting->nama_sekolah }}">
+    <center><img src="{{ asset('storage/logo_sekolah') . '/' . $setting->logo_sekolah }}"
+            alt="{{ $setting->nama_sekolah }}" width="60"></center>
 </a>

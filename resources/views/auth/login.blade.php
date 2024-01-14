@@ -87,20 +87,24 @@
                 <!-- Login -->
                 <div class="p-4 d-flex col-12 col-lg-12 col-xl-12 align-items-center authentication-bg p-sm-5"
                     style="background-image: url('https://shuffle.dev/vendor/shuffle/img/pattern-generator/background-pattern.png');">
-                    <div class="mx-auto w-px-400">
+                    <div class="p-4 mx-auto shadow-lg w-px-400 card rounded-5">
                         <!-- Logo -->
-                        <div class="mb-4 app-brand">
+                        <div class="gap-3 mb-4 app-brand d-flex align-items-center justify-content-center">
                             <a href="{{ $setting->url_sekolah }}" class="gap-2 app-brand-link">
                                 <img src="{{ asset('storage/logo_sekolah/' . $setting->logo_sekolah) }}"
-                                    class="img-fluid" width="60" alt="">
+                                    class="img-fluid" width="45" alt="">
                             </a>
-                            <span class="text-uppercase app-brand-text demo text-body fw-bolder fs-2"
-                                style="font-family: 'Baumans', cursive;">&nbsp;LSP SMKN 1 JAKARTA</span>
+
+                            <a href="https://bnsp.go.id/" target="_blank">
+                                <img src="{{ asset('assets/img/logo-bnsp.svg') }}" width="100" alt="">
+                            </a>
                         </div>
+                        <p class="text-center text-uppercase text-body fw-bolder fs-3"
+                            style="font-family: 'Baumans', cursive; letter-spacing: .1rem;">LSP SMKN 1 JAKARTA</p>
                         <!-- /Logo -->
-                        <h4 class="mb-2 fw-bold"></h4>
-                        {{-- <p class="mb-4">#SALAMKOMPETEN<br>#SMKBISA<br>#SMKHEBAT</p> --}}
-                        <p class="mb-4">Sistem Informasi Lembaga Sertifikasi Profesi SMKN 1 Jakarta. <i>#SALAMKOMPETEN</i></p>
+                        <p class="mb-4 text-center">
+                            Login untuk melanjutkan ke sistem informasi
+                        </p>
                         <x-validation-errors class="mb-4" />
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -114,7 +118,8 @@
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <x-input id="email" class="block w-full mt-1 form-control" type="email"
-                                    name="email" :value="old('email')" required autofocus autocomplete="username" placeholder="budi@lsp.smkn1jakarta.sch.id" />
+                                    name="email" :value="old('email')" required autofocus autocomplete="username"
+                                    placeholder="budi@lsp.smkn1jakarta.sch.id" />
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
@@ -128,7 +133,8 @@
                                 </div>
                                 <div class="input-group input-group-merge">
                                     <x-input id="password" class="block w-full form-control" type="password"
-                                        name="password" required autocomplete="current-password" placeholder="*******" />
+                                        name="password" required autocomplete="current-password"
+                                        placeholder="*******" />
                                     <span class="shadow-sm cursor-pointer input-group-text"><i
                                             class="bx bx-hide"></i></span>
                                 </div>
@@ -147,7 +153,7 @@
                         <div class="mt-5 text-center">
                             <small>&copy; {{ now()->year }} | Hak Cipta TIM IT {{ $setting->nama_sekolah }}</small>
                             <small>
-                                <p>Application Version 1.0 <span class="rounded-pill badge bg-danger">BETA</span></p>
+                                <p>Application Version 1.0 <span class="rounded-pill badge bg-danger">BETA_VERSION</span></p>
                             </small>
                         </div>
                     </div>

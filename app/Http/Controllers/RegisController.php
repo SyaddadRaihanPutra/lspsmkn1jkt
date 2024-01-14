@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asesi;
 use App\Models\Asesor;
 use App\Models\Jurusan;
 use App\Models\Sekolah;
@@ -40,16 +41,25 @@ class RegisController extends Controller
             'jurusan_id' => 'required',
         ]);
 
-        // dd($request->all());
-
         // Membuat instance siswa dan menyimpan data ke dalam database
         $user = User::create([
             'name' => $request->name,
+            'role' => $request->role,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'sekolah_id' => $request->sekolah_id,
             'jurusan_id' => $request->jurusan_id,
         ]);
+
+        $asesi = new Asesi ([
+            'nama_asesi' => $request->name,
+            'role' => $request->role,
+            'email' => $request->email,
+            'sekolah_id' => $request->sekolah_id,
+            'jurusan_id' => $request->jurusan_id,
+        ]);
+
+        $asesi->save();
 
         // Mengembalikan respons redirect dan menampilkan pesan sukses
         return redirect()->route('login')->with('success', 'Pendaftaran berhasil! Silahkan login untuk melanjutkan.');
@@ -87,6 +97,7 @@ class RegisController extends Controller
             'sertif_metodologi' => 'required|mimetypes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:2048',
             'sertif_kompetensi' => 'required|mimetypes:application/pdf|max:2048',
             'scan_burek' => 'required|mimetypes:application/pdf|max:2048',
+            'ttd' => 'required',
         ]);
 
         // Handle file uploads
@@ -98,11 +109,12 @@ class RegisController extends Controller
 
         $uuid = substr(str_replace('-', '', Str::uuid()), 0, 5);
 
-        $scanKtpPath = $request->file('scan_ktp')->storeAs("public/uploads/scan_ktp", $uuid . '.' . $request->file('scan_ktp')->getClientOriginalExtension());
-        $scanNpwpPath = $request->file('scan_npwp')->storeAs("public/uploads/scan_npwp", $uuid . '.' . $request->file('scan_npwp')->getClientOriginalExtension());
-        $sertifMetodologiPath = $request->file('sertif_metodologi')->storeAs("public/uploads/sertif_metodologi", $uuid . '.' . $request->file('sertif_metodologi')->getClientOriginalExtension());
-        $sertifKompetensiPath = $request->file('sertif_kompetensi')->storeAs("public/uploads/sertif_kompetensi", $uuid . '.' . $request->file('sertif_kompetensi')->getClientOriginalExtension());
-        $scanBurekPath = $request->file('scan_burek')->storeAs("public/uploads/scan_burek", $uuid . '.' . $request->file('scan_burek')->getClientOriginalExtension());
+        $scanKtpPath = $request->file('scan_ktp')->storeAs('public/uploads/scan_ktp', $uuid . '.' . $request->file('scan_ktp')->getClientOriginalExtension());
+        $scanNpwpPath = $request->file('scan_npwp')->storeAs('public/uploads/scan_npwp', $uuid . '.' . $request->file('scan_npwp')->getClientOriginalExtension());
+        $sertifMetodologiPath = $request->file('sertif_metodologi')->storeAs('public/uploads/sertif_metodologi', $uuid . '.' . $request->file('sertif_metodologi')->getClientOriginalExtension());
+        $sertifKompetensiPath = $request->file('sertif_kompetensi')->storeAs('public/uploads/sertif_kompetensi', $uuid . '.' . $request->file('sertif_kompetensi')->getClientOriginalExtension());
+        $scanBurekPath = $request->file('scan_burek')->storeAs('public/uploads/scan_burek', $uuid . '.' . $request->file('scan_burek')->getClientOriginalExtension());
+
 
         // dd($request->all());
 
@@ -114,7 +126,6 @@ class RegisController extends Controller
             'nama_asesor' => $request->nama_asesor,
             'role' => $request->role,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
             'no_reg' => $request->no_reg,
             'npwp' => $request->npwp,
             'nama_bank' => $request->nama_bank,
@@ -132,6 +143,7 @@ class RegisController extends Controller
             'sertif_metodologi' => $sertifMetodologiPath,
             'sertif_kompetensi' => $sertifKompetensiPath,
             'scan_burek' => $scanBurekPath,
+            'ttd' => $request->ttd,
         ]);
 
         // Save the instance to the database

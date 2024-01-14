@@ -8,9 +8,9 @@
     <x-authentication-card>
         <x-slot name="logo">
             <a href="{{ $setting->url_sekolah }}">
-                <img src="{{ $setting->logo_sekolah }}" class="mx-auto mb-3" width="60" alt="">
+                <img src="storage/logo_sekolah/{{ $setting->logo_sekolah }}" class="mx-auto mb-3" width="60" alt="">
                 <span class="block text-2xl text-center text-gray-600 uppercase "
-                    style="font-family: 'Baumans', cursive; font-weight: 800">Aplikasi Presensi</span>
+                    style="font-family: 'Baumans', cursive; font-weight: 800">Sistem Informasi LSP</span>
                 <p class="block text-2xl text-center text-gray-600 uppercase" style="font-family: 'Baumans', cursive;">
                     {{ $setting->nama_sekolah }}</p>
             </a>
@@ -21,10 +21,11 @@
         </div>
 
         @if (session('status'))
-            <div class="mb-4 text-sm font-medium text-green-600">
+            <div class="p-4 mb-4 text-green-700 bg-green-100 border-l-4 border-green-500" role="alert">
                 {{ session('status') }}
             </div>
         @endif
+
 
         <x-validation-errors class="mb-4" />
 

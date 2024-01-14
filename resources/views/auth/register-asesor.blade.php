@@ -24,7 +24,7 @@
                     @csrf
                     <div>
                         <label for="name">Nama</label>
-                        <input class="mb-3 form-control text-uppercase" id="name" type="text" name="nama_asesor" required>
+                        <input class="mb-3 form-control" id="name" type="text" name="nama_asesor" oninput="this.value = this.value.toUpperCase()" required>
                     </div>
                     <input type="hidden" name="role" value="2">
                     <div>
@@ -37,11 +37,12 @@
                     </div>
                     <div>
                         <label for="password_confirmation">Konfirmasi Password</label>
-                        <input class="mb-3 form-control" id="password_confirmation" type="password" name="password_confirmation" required>
+                        <input class="mb-3 form-control" id="password_confirmation" type="password"
+                            name="password_confirmation" required>
                     </div>
                     <div>
                         <label for="no_reg">No. REG</label>
-                        <input class="mb-3 form-control" id="no_reg" type="text" name="no_reg" required>
+                        <input class="mb-3 form-control" id="no_reg" type="text" name="no_reg" oninput="this.value = this.value.toUpperCase()" required>
                     </div>
                     <div>
                         <label for="npwpw">NPWP</label>
@@ -49,7 +50,7 @@
                     </div>
                     <div>
                         <label for="nama_bank">Nama Bank</label>
-                        <input class="mb-3 form-control" id="nama_bank" type="text" name="nama_bank" required>
+                        <input class="mb-3 form-control" id="nama_bank" type="text" name="nama_bank" oninput="this.value = this.value.toUpperCase()" required>
                     </div>
                     <div>
                         <label for="no_rek">No. Rekening</label>
@@ -101,9 +102,9 @@
                         </select>
                     </div>
                     <div>
-                        <label for="jurusan_id">Jurusan</label>
+                        <label for="jurusan_id">Kompetensi Keahlian</label>
                         <select name="jurusan_id" id="jurusan_id" class="form-select">
-                            <option value="" selected disabled>----- Pilih Jurusan -----</option>
+                            <option value="" selected disabled>----- Pilih Kompetensi Keahlian -----</option>
                             @foreach ($jurusan as $j)
                                 <option value="{{ $j->id }}">{{ $j->nama_jurusan }}</option>
                             @endforeach
@@ -122,17 +123,31 @@
                     <div>
                         <label for="sertif_metodologi">SCAN SERTIFIKAT ASESOR METODOLOGI</label>
                         <small>Ukuran File Maks: 1MB(Megabyte) PDF</small>
-                        <input id="sertif_metodologi" type="file" name="sertif_metodologi" class="mb-3 form-control" required>
+                        <input id="sertif_metodologi" type="file" name="sertif_metodologi"
+                            class="mb-3 form-control" required>
                     </div>
                     <div>
                         <label for="sertif_kompetensi">SCAN SERTIFIKAT KOMPETENSI TEKNIS BNSP</label>
                         <small>Ukuran File Maks: 1MB(Megabyte) PDF</small>
-                        <input id="sertif_kompetensi" type="file" name="sertif_kompetensi" class="mb-3 form-control" required>
+                        <input id="sertif_kompetensi" type="file" name="sertif_kompetensi"
+                            class="mb-3 form-control" required>
                     </div>
                     <div>
                         <label for="scan_burek">Scan Buku Rekening</label>
                         <small>Ukuran File Maks: 1MB(Megabyte) PDF</small>
                         <input id="scan_burek" type="file" name="scan_burek" class="mb-3 form-control" required>
+                    </div>
+                    <div>
+                        <label for="ttd">Tanda Tangan:</label>
+                        <div id="signature-pad" class="m-signature-pad">
+                            <div class="m-signature-pad--body">
+                                <canvas class="form-control mb-3"></canvas>
+                            </div>
+                            <div class="m-signature-pad--footer">
+                                <button type="button" class="btn btn-primary btn-sm" id="clear">Clear</button>
+                            </div>
+                        </div>
+                        {!! Form::hidden('ttd', null, ['id' => 'ttd']) !!}
                     </div>
                     <div>
                         <button type="submit" class="mt-3 btn btn-primary d-block col-12">Daftar</button>
@@ -141,6 +156,20 @@
             </div>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+    <script>
+        var canvas = document.querySelector("canvas");
+        var signaturePad = new SignaturePad(canvas);
+
+        document.getElementById('clear').addEventListener('click', function() {
+            signaturePad.clear();
+        });
+
+        document.querySelector('form').addEventListener('submit', function(e) {
+            var ttdInput = document.getElementById('ttd');
+            ttdInput.value = signaturePad.toDataURL();
+        });
+    </script>
 
 </body>
 

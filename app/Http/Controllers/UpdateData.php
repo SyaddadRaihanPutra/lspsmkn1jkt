@@ -3,55 +3,63 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asesor;
+use App\Models\Jurusan;
+use App\Models\Sekolah;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
-class UpdateDataAsesor extends Controller
+class UpdateData extends Controller
 {
     public function edit($id)
     {
-        // Find the Asesor record to update
+        $role = "Asesor";
         $user = Asesor::findOrFail($id);
+        $sekolah = Sekolah::all();
+        $jurusan = Jurusan::all();
+        $asesorData = Asesor::where('email', $user->email)->first();
 
-        // Return a view with the Asesor record
-        return view('asesor.edit', compact('user'));
+        return view('asesor.detaildiri-edit', compact('role', 'user', 'sekolah', 'jurusan', 'asesorData'));
     }
     public function update(Request $request, $id)
     {
         // Validate the request
         $request->validate([
-            'nama_asesor' => 'required|string|max:255',
-            'role' => 'required',
-            'no_reg' => 'required',
             'email' => 'required|email',
-            'password' => 'required|string|min:8|confirmed',
-            'npwp' => 'required',
-            'nama_bank' => 'required',
-            'no_rek' => 'required',
-            'tempat_lahir' => 'required',
-            'tgl_lahir' => 'required',
-            'agama' => 'required',
-            'jk' => 'required',
-            'alamat' => 'required',
-            'no_telp' => 'required',
-            'sekolah_id' => 'required',
-            'jurusan_id' => 'required',
-            'scan_ktp' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'scan_npwp' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'sertif_metodologi' => 'required|mimetypes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:2048',
-            'sertif_kompetensi' => 'required|mimetypes:application/pdf|max:2048',
-            'scan_burek' => 'required|mimetypes:application/pdf|max:2048',
+            'password' => 'sometimes|nullable|string|min:8|confirmed',
+            'nama_asesor' => 'sometimes|nullable|string|max:255',
+            'no_reg' => 'sometimes|nullable',
+            'npwp' => 'sometimes|nullable',
+            'nama_bank' => 'sometimes|nullable',
+            'no_rek' => 'sometimes|nullable',
+            'tempat_lahir' => 'sometimes|nullable',
+            'tgl_lahir' => 'sometimes|nullable',
+            'agama' => 'sometimes|nullable',
+            'jk' => 'sometimes|nullable',
+            'alamat' => 'sometimes|nullable',
+            'no_telp' => 'sometimes|nullable',
+            'sekolah_id' => 'sometimes|nullable',
+            'jurusan_id' => 'sometimes|nullable',
+            'scan_ktp' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'scan_npwp' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'sertif_metodologi' => 'sometimes|nullable|mimetypes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:2048',
+            'sertif_kompetensi' => 'sometimes|nullable|mimetypes:application/pdf|max:2048',
+            'scan_burek' => 'sometimes|nullable|mimetypes:application/pdf|max:2048',
+            // 'ttd' => 'sometimes|nullable',
         ]);
+
+        // @dd($request->all());
 
         // Find the Asesor record to update
         $user = Asesor::findOrFail($id);
+
+        $oldEmail = $user->email;
 
         // Update the fields in the Asesor model
         $user->update([
             'email' => $request->email,
             'nama_asesor' => $request->nama_asesor,
-            'role' => $request->role,
             'no_reg' => $request->no_reg,
             'npwp' => $request->npwp,
             'nama_bank' => $request->nama_bank,
@@ -64,26 +72,27 @@ class UpdateDataAsesor extends Controller
             'no_telp' => $request->no_telp,
             'sekolah_id' => $request->sekolah_id,
             'jurusan_id' => $request->jurusan_id,
+            // 'ttd' => $request->ttd,
         ]);
 
         // Update the corresponding User record if it exists
-        $relatedUser = User::where('email', $user->email)->first();
+        $relatedUser = User::where('email', $oldEmail)->first();
 
         if ($relatedUser) {
             $relatedUser->update([
                 'email' => $request->email,
                 'name' => $request->nama_asesor,
-                'role' => $request->role,
                 'sekolah_id' => $request->sekolah_id,
                 'jurusan_id' => $request->jurusan_id,
             ]);
         }
 
+
         // Handle file uploads
         $this->handleFileUploads($request, $user);
 
         // Return a response, redirect, or perform any other necessary action
-        return redirect()->route('your.route.name')->with('success', 'Asesor updated successfully');
+        return redirect()->route('detaildiri')->with('success', 'Data diri Asesor berhasil diubah');
     }
 
     private function handleFileUploads(Request $request, Asesor $user)
@@ -115,8 +124,17 @@ class UpdateDataAsesor extends Controller
         // Delete the old file
         Storage::delete($user->{$fieldName});
 
-        // Store the new file
-        $user->{$fieldName} = $request->file($inputName)->store("public/uploads/{$fieldName}");
+        // Generate a 5-digit UUID
+        $uuid = Str::random(5);
+
+        // Get the file extension
+        $extension = $request->file($inputName)->getClientOriginalExtension();
+
+        // Combine UUID and extension to create a unique filename
+        $newFilename = "{$uuid}.{$extension}";
+
+        // Store the new file with the unique filename
+        $user->{$fieldName} = $request->file($inputName)->storeAs("public/uploads/{$fieldName}", $newFilename);
         $user->save();
     }
 }

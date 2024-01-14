@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asesi;
 use App\Models\Asesor;
 use App\Models\Jurusan;
 use App\Models\Setting;
@@ -34,9 +35,8 @@ class DashboardController extends Controller
         }
         if ($role == '3') {
             $role = "Asesi";
-            $jurusan_id = auth()->user()->jurusan_id;
 
-            return view('asesi.dashboard', compact('role', 'jurusan_id')); //ROLE ASESI
+            return view('asesi.dashboard', compact('role')); //ROLE ASESI
         }
     }
 

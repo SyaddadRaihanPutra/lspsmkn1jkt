@@ -69,6 +69,7 @@ class Kernel extends HttpKernel
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'admin' => \App\Http\Middleware\Admin::class,
         'asesor' => \App\Http\Middleware\AsesorMiddleware::class,
+        'asesi' => \App\Http\Middleware\AsesiMiddleware::class,
     ];
 
 }

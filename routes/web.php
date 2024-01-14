@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AsesorController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DetailDiriController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\RegisController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UpdateData;
 use App\Http\Controllers\UpdateDataAsesor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -77,9 +79,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/asesor-update', [UpdateDataAsesor::class, 'update'])->name('update-data-asesor');
 });
 
-Route::middleware(['auth', 'asesor'])->group(function () {
-    Route::get('/detaildiri',[AsesorController::class, 'detaildiri'])->name('detaildiri');
-    // Route::view('/asesor', 'asesor.dashboard')->name('asesor');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/detaildiri', [DetailDiriController::class, 'detaildiri'])->name('detaildiri');
+    Route::get('/detaildiri/{id}/edit', [UpdateData::class, 'edit'])->name('edit-data-asesor');
+    Route::put('/detaildiri/{id}', [UpdateData::class, 'update'])->name('update-data-asesor');
+});
+
+Route::middleware(['auth', 'asesi'])->group(function () {
+    // Route::get('/example', function () {
+    //     echo "Hello, this is an example!";
+    // });
 });
 
 Route::middleware([
@@ -87,9 +96,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->get(
-    '/dashboard',
-    [DashboardController::class, 'index']
-)->name('dashboard');
+        '/dashboard',
+        [DashboardController::class, 'index']
+    )->name('dashboard');
 
 // Route::get('logout', function () {
 //     Auth::logout();

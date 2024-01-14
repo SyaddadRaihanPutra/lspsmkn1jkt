@@ -10,7 +10,20 @@
                         <div class="col-12">
                             <div class="card-body">
                                 <div>
-                                    <h3>Detail Data Diri Asesor</h3>
+                                    @if(session('success'))
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <strong>{{ session('success') }}</strong>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                    @endif
+                                    <div class="d-flex justify-content-between">
+                                        <h3>Detail Data Diri Asesor</h3>
+                                        <a href="{{ route('edit-data-asesor', $asesorData->id_asesor) }}" class="ml-auto btn btn-secondary" style="position: relative; display: inline-flex; align-items: center;">
+                                            <i class='bx bxs-edit' style="margin-right: 5px;"></i>
+                                            <span>Edit</span>
+                                        </a>
+                                    </div>
                                     <p>Berikut adalah data diri Anda yang terdaftar di sistem.</p>
                                     <style>
                                         th {
@@ -134,7 +147,7 @@
                                             </tr>
                                             <tr>
                                                 <th>
-                                                    Alamat
+                                                    Alamat Domisili
                                                 </th>
                                                 <td class="dot">
                                                     :
@@ -165,23 +178,47 @@
                                                     {{ $asesorData->jurusan->nama_jurusan }}
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <th>
+                                                    Tanda Tangan
+                                                </th>
+                                                <td class="dot">
+                                                    :
+                                                </td>
+                                                <td>
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalToggle">
+                                                        <img src="{{ $asesorData->ttd }}" alt="image scan ktp" width="150">
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         </table>
-                                        <div class="d-flex flex-column">
-                                            <button type="button" class="mt-3 btn btn-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#modalToggle">
-                                                SCAN KTP
-                                            </button>
-                                            <button type="button" class="mt-3 btn btn-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#modalToggle2">
-                                                SCAN NPWP
-                                            </button>
-                                            <button type="button" class="mt-3 btn btn-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#modalToggle3">
-                                                SERTIFIKAT ASESOR METODOLOGI
-                                            </button>
-                                            <button type="button" class="mt-3 btn btn-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#modalToggle4">
-                                                SERTIFIKAT KOMPETENSI TEKNIS BNSP
-                                            </button>
-                                            <button type="button" class="mt-3 btn btn-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#modalToggle5">
-                                                SCAN BUKU REKENING
-                                            </button>
+                                        <div class="row">
+                                            <div class="col-md-6 col-12">
+                                                <button type="button" class="mt-3 btn btn-primary w-100"
+                                                    data-bs-toggle="modal" data-bs-target="#modalToggle">
+                                                    SCAN KTP
+                                                </button>
+                                                <button type="button" class="mt-3 btn btn-primary w-100"
+                                                    data-bs-toggle="modal" data-bs-target="#modalToggle2">
+                                                    SCAN NPWP
+                                                </button>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <button type="button" class="mt-3 btn btn-primary w-100"
+                                                    data-bs-toggle="modal" data-bs-target="#modalToggle3">
+                                                    SERTIFIKAT ASESOR METODOLOGI
+                                                </button>
+                                                <button type="button" class="mt-3 btn btn-primary w-100"
+                                                    data-bs-toggle="modal" data-bs-target="#modalToggle4">
+                                                    SERTIFIKAT KOMPETENSI TEKNIS BNSP
+                                                </button>
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="button" class="mt-3 btn btn-primary w-100"
+                                                    data-bs-toggle="modal" data-bs-target="#modalToggle5">
+                                                    SCAN BUKU REKENING
+                                                </button>
+                                            </div>
                                         </div>
 
                                         <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel"
@@ -194,7 +231,8 @@
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <img src="{{ asset(str_replace('/public/uploads/scan_ktp', '', 'storage/uploads/scan_ktp/' . $asesorData->scan_ktp)) }}" alt="image scan ktp" width="150">
+                                                        <img src="{{ asset(str_replace('/public/uploads/scan_ktp', '', 'storage/uploads/scan_ktp/' . $asesorData->scan_ktp)) }}"
+                                                            alt="image scan ktp" width="150">
 
                                                     </div>
                                                 </div>
@@ -210,7 +248,8 @@
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <img src="{{ asset(str_replace('/public/uploads/scan_npwp', '', 'storage/uploads/scan_npwp/' . $asesorData->scan_npwp)) }}" alt="image scan npwp" width="150">
+                                                        <img src="{{ asset(str_replace('/public/uploads/scan_npwp', '', 'storage/uploads/scan_npwp/' . $asesorData->scan_npwp)) }}"
+                                                            alt="image scan npwp" width="150">
                                                     </div>
                                                 </div>
                                             </div>
@@ -220,12 +259,15 @@
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="modalToggleLabel">Detail SCAN SERTIFIKAT ASESOR METODOLOGI</h5>
+                                                        <h5 class="modal-title" id="modalToggleLabel">Detail SCAN SERTIFIKAT
+                                                            ASESOR METODOLOGI</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <embed src="{{ asset(str_replace('/public/uploads/sertif_metodologi', '', 'storage/uploads/sertif_metodologi/' . $asesorData->sertif_metodologi)) }}" type="application/pdf" width="100%" height="600px">
+                                                        <embed
+                                                            src="{{ asset(str_replace('/public/uploads/sertif_metodologi', '', 'storage/uploads/sertif_metodologi/' . $asesorData->sertif_metodologi)) }}"
+                                                            type="application/pdf" width="100%" height="600px">
                                                     </div>
                                                 </div>
                                             </div>
@@ -235,12 +277,15 @@
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="modalToggleLabel">Detail SCAN SERTIFIKAT KOMPETENSI TEKNIS BNSP</h5>
+                                                        <h5 class="modal-title" id="modalToggleLabel">Detail SCAN
+                                                            SERTIFIKAT KOMPETENSI TEKNIS BNSP</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <embed src="{{ asset(str_replace('/public/uploads/sertif_kompetensi', '', 'storage/uploads/sertif_kompetensi/' . $asesorData->sertif_kompetensi)) }}" type="application/pdf" width="100%" height="600px">
+                                                        <embed
+                                                            src="{{ asset(str_replace('/public/uploads/sertif_kompetensi', '', 'storage/uploads/sertif_kompetensi/' . $asesorData->sertif_kompetensi)) }}"
+                                                            type="application/pdf" width="100%" height="600px">
 
                                                     </div>
                                                 </div>
@@ -251,12 +296,15 @@
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="modalToggleLabel">Detail SCAN SERTIFIKAT KOMPETENSI TEKNIS BNSP</h5>
+                                                        <h5 class="modal-title" id="modalToggleLabel">Detail SCAN
+                                                            SERTIFIKAT KOMPETENSI TEKNIS BNSP</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <embed src="{{ asset(str_replace('/public/uploads/scan_burek', '', 'storage/uploads/scan_burek/' . $asesorData->scan_burek)) }}" type="application/pdf" width="100%" height="600px">
+                                                        <embed
+                                                            src="{{ asset(str_replace('/public/uploads/scan_burek', '', 'storage/uploads/scan_burek/' . $asesorData->scan_burek)) }}"
+                                                            type="application/pdf" width="100%" height="600px">
                                                     </div>
                                                 </div>
                                             </div>
