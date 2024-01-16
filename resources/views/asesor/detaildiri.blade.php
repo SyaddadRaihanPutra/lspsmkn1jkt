@@ -19,9 +19,9 @@
                                     @endif
                                     <div class="d-flex justify-content-between">
                                         <h3>Detail Data Diri Asesor</h3>
-                                        <a href="{{ route('edit-data-asesor', $asesorData->id_asesor) }}" class="ml-auto btn btn-secondary" style="position: relative; display: inline-flex; align-items: center;">
-                                            <i class='bx bxs-edit' style="margin-right: 5px;"></i>
-                                            <span>Edit</span>
+                                        <a href="{{ route('edit-data-asesor', $asesorData->id_asesor) }}" class="ml-auto btn btn-outline-secondary btn-sm" style="position: relative; display: inline-flex; align-items: center;">
+                                            <i class='bx bxs-edit'></i>
+                                            {{-- <span>Edit</span> --}}
                                         </a>
                                     </div>
                                     <p>Berikut adalah data diri Anda yang terdaftar di sistem.</p>

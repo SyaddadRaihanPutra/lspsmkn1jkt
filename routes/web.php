@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\APLController;
 use App\Http\Controllers\AsesorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailDiriController;
@@ -74,21 +75,21 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('master-sekolah/{id}', [MasterController::class, 'master_sekolah_update'])->name('master-sekolah-update');
     Route::delete('master-sekolah/delete/{id}', [MasterController::class, 'master_sekolah_destroy'])->name('master-sekolah-delete');
 
-
-
-    Route::post('/asesor-update', [UpdateDataAsesor::class, 'update'])->name('update-data-asesor');
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/detaildiri', [DetailDiriController::class, 'detaildiri'])->name('detaildiri');
-    Route::get('/detaildiri/{id}/edit', [UpdateData::class, 'edit'])->name('edit-data-asesor');
-    Route::put('/detaildiri/{id}', [UpdateData::class, 'update'])->name('update-data-asesor');
+});
+
+Route::middleware(['auth', 'asesor'])->group(function () {
+    Route::get('/detaildiri-asesor/{id}/edit', [UpdateData::class, 'edit'])->name('edit-data-asesor');
+    Route::put('/detaildiri-asesor/{id}', [UpdateData::class, 'update'])->name('update-data-asesor');
 });
 
 Route::middleware(['auth', 'asesi'])->group(function () {
-    // Route::get('/example', function () {
-    //     echo "Hello, this is an example!";
-    // });
+    Route::get('/detaildiri-asesi/{id}/edit', [UpdateData::class, 'editAsesi'])->name('edit-data-asesi');
+    Route::put('/detaildiri-asesi/{id}', [UpdateData::class, 'updateAsesi'])->name('update-data-asesi');
+    Route::get('/apl01', [APLController::class, 'apl1'])->name('apl1');
 });
 
 Route::middleware([

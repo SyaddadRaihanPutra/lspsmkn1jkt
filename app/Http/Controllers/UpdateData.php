@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asesi;
 use App\Models\Asesor;
 use App\Models\Jurusan;
 use App\Models\Sekolah;
@@ -136,5 +137,70 @@ class UpdateData extends Controller
         // Store the new file with the unique filename
         $user->{$fieldName} = $request->file($inputName)->storeAs("public/uploads/{$fieldName}", $newFilename);
         $user->save();
+    }
+
+    public function editAsesi($id)
+    {
+        $role = "Asesi";
+        $user = Asesi::findOrFail($id);
+        $sekolah = Sekolah::all();
+        $jurusan = Jurusan::all();
+        $asesiData = Asesi::where('email', $user->email)->first();
+
+        return view('asesi.detaildiri-edit', compact('role', 'user', 'sekolah', 'jurusan', 'asesiData'));
+    }
+
+    public function updateAsesi(Request $request, $id)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'nama_asesi' => 'sometimes|nullable|string|max:255',
+            'password' => 'sometimes|nullable|string|min:8|confirmed',
+            'tempat_lahir' => 'sometimes|nullable',
+            'tgl_lahir' => 'sometimes|nullable',
+            'agama' => 'sometimes|nullable',
+            'jk' => 'sometimes|nullable',
+            'alamat' => 'sometimes|nullable',
+            'no_telp' => 'sometimes|nullable',
+            'sekolah_id' => 'sometimes|nullable',
+            'jurusan_id' => 'sometimes|nullable',
+            'ttd' => 'sometimes|nullable',
+        ]);
+
+        @dd($request->all());
+
+        $user = Asesi::findOrFail($id);
+
+        $oldEmail = $user->email;
+
+        $user->update([
+            'email' => $request->email,
+            'nama_asesi' => $request->nama_asesi,
+            'nis' => $request->nis,
+            'nisn' => $request->nisn,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tgl_lahir' => $request->tgl_lahir,
+            'agama' => $request->agama,
+            'jk' => $request->jk,
+            'alamat' => $request->alamat,
+            'no_telp' => $request->no_telp,
+            'sekolah_id' => $request->sekolah_id,
+            'jurusan_id' => $request->jurusan_id,
+            'ttd' => $request->ttd,
+        ]);
+
+        $relatedUser = User::where('email', $oldEmail)->first();
+
+        if ($relatedUser) {
+            $relatedUser->update([
+                'email' => $request->email,
+                'name' => $request->nama_asesi,
+                'sekolah_id' => $request->sekolah_id,
+                'jurusan_id' => $request->jurusan_id,
+            ]);
+        }
+
+        return redirect()->route('detaildiri')->with('success', 'Data diri Asesi berhasil diubah');
+
     }
 }

@@ -28,9 +28,9 @@
             </div>
             <!-- Total Revenue -->
             <center>
-                <div class="row mb-5">
+                <div class="mb-5 row">
                     <div class="col-md">
-                        <div class="card mb-3">
+                        <div class="mb-3 card">
                             <div class="row g-0">
                                 <div class="col-md-4">
                                     <img class="card-img card-img-left img-fluid" src="{{ asset('assets/img/apl1.jpg') }}"
@@ -44,14 +44,14 @@
                                         </p>
                                         <p class="card-text"><small class="text-muted">*) Wajib diisi sebelum mengisi FR.APL
                                                 02</small></p>
-                                        <a href="#" class="btn btn-primary">Isi Formulir</a>
+                                        <a href="{{ route('apl1') }}" class="btn btn-primary">Isi Formulir</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md">
-                        <div class="card mb-3">
+                        <div class="mb-3 card">
                             <div class="row g-0">
                                 <div class="col-md-4">
                                     <img class="card-img card-img-left img-fluid" src="{{ asset('assets/img/apl2.jpg') }}"
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body" style="text-align: left;">
-                                        <h5 class="card-title">FR.APL 01</h5>
+                                        <h5 class="card-title">FR.APL 02</h5>
                                         <p class="card-text">
                                             Skema Sertifikasi Kompetensi Keahlian
                                         </p>

@@ -141,7 +141,7 @@
                         <label for="ttd">Tanda Tangan:</label>
                         <div id="signature-pad" class="m-signature-pad">
                             <div class="m-signature-pad--body">
-                                <canvas class="form-control mb-3"></canvas>
+                                <canvas class="mb-3 form-control" style="cursor: crosshair"></canvas>
                             </div>
                             <div class="m-signature-pad--footer">
                                 <button type="button" class="btn btn-primary btn-sm" id="clear">Clear</button>
